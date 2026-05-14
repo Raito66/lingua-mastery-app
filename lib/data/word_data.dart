@@ -1,0 +1,148 @@
+import '../models/word.dart';
+
+// ────────────────────────────────────────────────
+// 英文單字
+// ────────────────────────────────────────────────
+const List<Word> englishWords = [
+  // ── Beginner ──
+  Word(id: 'en_001', word: 'apple', translation: '蘋果', example: 'I eat an apple every day.', exampleTranslation: '我每天吃一顆蘋果。', language: 'english', level: 'beginner'),
+  Word(id: 'en_002', word: 'book', translation: '書', example: 'She reads a book before bed.', exampleTranslation: '她睡前會讀書。', language: 'english', level: 'beginner'),
+  Word(id: 'en_003', word: 'cat', translation: '貓', example: 'The cat is sleeping on the sofa.', exampleTranslation: '貓在沙發上睡覺。', language: 'english', level: 'beginner'),
+  Word(id: 'en_004', word: 'dog', translation: '狗', example: 'My dog loves to play in the park.', exampleTranslation: '我的狗喜歡在公園玩。', language: 'english', level: 'beginner'),
+  Word(id: 'en_005', word: 'eat', translation: '吃', example: 'We eat lunch at noon.', exampleTranslation: '我們中午吃午餐。', language: 'english', level: 'beginner'),
+  Word(id: 'en_006', word: 'friend', translation: '朋友', example: 'He is my best friend.', exampleTranslation: '他是我最好的朋友。', language: 'english', level: 'beginner'),
+  Word(id: 'en_007', word: 'happy', translation: '快樂的', example: 'She is happy today.', exampleTranslation: '她今天很快樂。', language: 'english', level: 'beginner'),
+  Word(id: 'en_008', word: 'house', translation: '房子', example: 'They live in a big house.', exampleTranslation: '他們住在一棟大房子裡。', language: 'english', level: 'beginner'),
+  Word(id: 'en_009', word: 'water', translation: '水', example: 'Please drink more water.', exampleTranslation: '請多喝水。', language: 'english', level: 'beginner'),
+  Word(id: 'en_010', word: 'run', translation: '跑', example: 'I run every morning.', exampleTranslation: '我每天早上跑步。', language: 'english', level: 'beginner'),
+  Word(id: 'en_011', word: 'school', translation: '學校', example: 'I go to school by bus.', exampleTranslation: '我搭公車上學。', language: 'english', level: 'beginner'),
+  Word(id: 'en_012', word: 'sleep', translation: '睡覺', example: 'I sleep eight hours a day.', exampleTranslation: '我每天睡八小時。', language: 'english', level: 'beginner'),
+  Word(id: 'en_013', word: 'food', translation: '食物', example: 'This food is delicious.', exampleTranslation: '這食物很好吃。', language: 'english', level: 'beginner'),
+  Word(id: 'en_014', word: 'music', translation: '音樂', example: 'I love listening to music.', exampleTranslation: '我喜歡聽音樂。', language: 'english', level: 'beginner'),
+  Word(id: 'en_015', word: 'sun', translation: '太陽', example: 'The sun rises in the east.', exampleTranslation: '太陽從東方升起。', language: 'english', level: 'beginner'),
+  Word(id: 'en_016', word: 'moon', translation: '月亮', example: 'The moon is bright tonight.', exampleTranslation: '今晚月亮很亮。', language: 'english', level: 'beginner'),
+  Word(id: 'en_017', word: 'time', translation: '時間', example: 'Time flies so fast.', exampleTranslation: '時間過得好快。', language: 'english', level: 'beginner'),
+  Word(id: 'en_018', word: 'work', translation: '工作', example: 'She works hard every day.', exampleTranslation: '她每天努力工作。', language: 'english', level: 'beginner'),
+  Word(id: 'en_019', word: 'play', translation: '玩', example: 'The kids play in the garden.', exampleTranslation: '孩子們在花園玩。', language: 'english', level: 'beginner'),
+  Word(id: 'en_020', word: 'love', translation: '愛', example: 'I love my family.', exampleTranslation: '我愛我的家人。', language: 'english', level: 'beginner'),
+  Word(id: 'en_021', word: 'city', translation: '城市', example: 'This city is very crowded.', exampleTranslation: '這座城市非常擁擠。', language: 'english', level: 'beginner'),
+  Word(id: 'en_022', word: 'tree', translation: '樹', example: 'The tree is very tall.', exampleTranslation: '這棵樹很高。', language: 'english', level: 'beginner'),
+  Word(id: 'en_023', word: 'road', translation: '路', example: 'This road leads to the beach.', exampleTranslation: '這條路通往海灘。', language: 'english', level: 'beginner'),
+  Word(id: 'en_024', word: 'cold', translation: '冷的', example: 'It is cold outside today.', exampleTranslation: '今天外面很冷。', language: 'english', level: 'beginner'),
+  Word(id: 'en_025', word: 'hot', translation: '熱的', example: 'The soup is too hot to drink.', exampleTranslation: '湯太燙了，不能喝。', language: 'english', level: 'beginner'),
+
+  // ── Intermediate ──
+  Word(id: 'en_026', word: 'ambitious', translation: '有抱負的', example: 'She is an ambitious student.', exampleTranslation: '她是個有抱負的學生。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_027', word: 'curious', translation: '好奇的', example: 'Children are naturally curious.', exampleTranslation: '孩子天生就很好奇。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_028', word: 'efficient', translation: '有效率的', example: 'We need a more efficient process.', exampleTranslation: '我們需要更有效率的流程。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_029', word: 'grateful', translation: '感激的', example: 'I am grateful for your help.', exampleTranslation: '我很感激你的幫助。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_030', word: 'persevere', translation: '堅持不懈', example: 'You must persevere to succeed.', exampleTranslation: '你必須堅持才能成功。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_031', word: 'negotiate', translation: '談判、協商', example: 'They negotiated a new deal.', exampleTranslation: '他們談成了一筆新交易。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_032', word: 'recommend', translation: '推薦', example: 'Can you recommend a good restaurant?', exampleTranslation: '你能推薦一家好餐廳嗎？', language: 'english', level: 'intermediate'),
+  Word(id: 'en_033', word: 'contribute', translation: '貢獻、捐獻', example: 'Everyone should contribute to society.', exampleTranslation: '每個人都應該為社會做貢獻。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_034', word: 'analyze', translation: '分析', example: 'We need to analyze the data carefully.', exampleTranslation: '我們需要仔細分析數據。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_035', word: 'flexible', translation: '靈活的', example: 'A flexible schedule helps a lot.', exampleTranslation: '彈性的時間表很有幫助。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_036', word: 'determine', translation: '決定、確定', example: 'She determined to finish the project.', exampleTranslation: '她決心完成這個項目。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_037', word: 'consequence', translation: '後果', example: 'Think about the consequences first.', exampleTranslation: '先想想後果。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_038', word: 'significant', translation: '重要的、顯著的', example: 'This is a significant discovery.', exampleTranslation: '這是一個重大發現。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_039', word: 'encourage', translation: '鼓勵', example: 'She encouraged me to keep going.', exampleTranslation: '她鼓勵我繼續下去。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_040', word: 'communicate', translation: '溝通', example: 'It is important to communicate clearly.', exampleTranslation: '清楚地溝通很重要。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_041', word: 'opportunity', translation: '機會', example: 'Do not miss this opportunity.', exampleTranslation: '不要錯過這個機會。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_042', word: 'challenge', translation: '挑戰', example: 'Every challenge makes you stronger.', exampleTranslation: '每個挑戰都讓你更強大。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_043', word: 'achieve', translation: '達成', example: 'Hard work helps you achieve your goals.', exampleTranslation: '努力幫助你達成目標。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_044', word: 'environment', translation: '環境', example: 'We must protect the environment.', exampleTranslation: '我們必須保護環境。', language: 'english', level: 'intermediate'),
+  Word(id: 'en_045', word: 'patience', translation: '耐心', example: 'Learning a language requires patience.', exampleTranslation: '學語言需要耐心。', language: 'english', level: 'intermediate'),
+
+  // ── Advanced ──
+  Word(id: 'en_046', word: 'eloquent', translation: '口才好的、雄辯的', example: 'The speaker gave an eloquent speech.', exampleTranslation: '演講者發表了一篇雄辯的演說。', language: 'english', level: 'advanced'),
+  Word(id: 'en_047', word: 'ephemeral', translation: '短暫的、轉瞬即逝的', example: 'Youth is ephemeral.', exampleTranslation: '青春是短暫的。', language: 'english', level: 'advanced'),
+  Word(id: 'en_048', word: 'meticulous', translation: '一絲不苟的', example: 'She is meticulous about her work.', exampleTranslation: '她對工作一絲不苟。', language: 'english', level: 'advanced'),
+  Word(id: 'en_049', word: 'resilient', translation: '有韌性的', example: 'He is resilient in the face of challenges.', exampleTranslation: '他面對挑戰時很有韌性。', language: 'english', level: 'advanced'),
+  Word(id: 'en_050', word: 'ubiquitous', translation: '無所不在的', example: 'Smartphones are now ubiquitous.', exampleTranslation: '智慧型手機現在無所不在。', language: 'english', level: 'advanced'),
+  Word(id: 'en_051', word: 'ambiguous', translation: '模糊的、含糊不清的', example: 'His answer was ambiguous.', exampleTranslation: '他的回答含糊不清。', language: 'english', level: 'advanced'),
+  Word(id: 'en_052', word: 'paradigm', translation: '典範、範式', example: 'This discovery shifted the scientific paradigm.', exampleTranslation: '這個發現改變了科學範式。', language: 'english', level: 'advanced'),
+  Word(id: 'en_053', word: 'tenacious', translation: '堅韌的', example: 'She is a tenacious competitor.', exampleTranslation: '她是個堅韌的競爭者。', language: 'english', level: 'advanced'),
+  Word(id: 'en_054', word: 'pragmatic', translation: '務實的', example: 'We need a pragmatic solution.', exampleTranslation: '我們需要務實的解決方案。', language: 'english', level: 'advanced'),
+  Word(id: 'en_055', word: 'scrutinize', translation: '仔細審查', example: 'The committee will scrutinize the proposal.', exampleTranslation: '委員會將仔細審查這份提案。', language: 'english', level: 'advanced'),
+  Word(id: 'en_056', word: 'paradox', translation: '悖論、矛盾', example: 'It is a paradox that more choices lead to less happiness.', exampleTranslation: '選擇越多反而越不快樂，這是個悖論。', language: 'english', level: 'advanced'),
+  Word(id: 'en_057', word: 'integrity', translation: '誠信、正直', example: 'A leader must have integrity.', exampleTranslation: '領導者必須有誠信。', language: 'english', level: 'advanced'),
+  Word(id: 'en_058', word: 'inevitable', translation: '不可避免的', example: 'Change is inevitable.', exampleTranslation: '改變是不可避免的。', language: 'english', level: 'advanced'),
+  Word(id: 'en_059', word: 'profound', translation: '深刻的', example: 'Reading has a profound effect on the mind.', exampleTranslation: '閱讀對心靈有深刻影響。', language: 'english', level: 'advanced'),
+  Word(id: 'en_060', word: 'volatile', translation: '易變的、不穩定的', example: 'The market is very volatile right now.', exampleTranslation: '目前市場非常不穩定。', language: 'english', level: 'advanced'),
+];
+
+// ────────────────────────────────────────────────
+// 日文單字
+// ────────────────────────────────────────────────
+const List<Word> japaneseWords = [
+  // ── Beginner ──
+  Word(id: 'jp_001', word: 'おはよう', reading: 'おはよう', romaji: 'Ohayou', translation: '早安', example: 'おはようございます！', exampleTranslation: '早上好！（敬語）', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_002', word: 'ありがとう', reading: 'ありがとう', romaji: 'Arigatou', translation: '謝謝', example: 'ありがとうございます！', exampleTranslation: '非常感謝您！', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_003', word: 'すみません', reading: 'すみません', romaji: 'Sumimasen', translation: '不好意思／對不起', example: 'すみません、駅はどこですか？', exampleTranslation: '不好意思，請問車站在哪裡？', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_004', word: 'たべる', reading: 'たべる', romaji: 'Taberu', translation: '吃', example: 'ごはんをたべます。', exampleTranslation: '我吃飯。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_005', word: 'みず', reading: 'みず', romaji: 'Mizu', translation: '水', example: 'みずをのみます。', exampleTranslation: '我喝水。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_006', word: 'ともだち', reading: 'ともだち', romaji: 'Tomodachi', translation: '朋友', example: 'かれはともだちです。', exampleTranslation: '他是我的朋友。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_007', word: 'がっこう', reading: 'がっこう', romaji: 'Gakkou', translation: '學校', example: 'まいにちがっこうにいきます。', exampleTranslation: '我每天去學校。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_008', word: 'すき', reading: 'すき', romaji: 'Suki', translation: '喜歡', example: 'ねこがすきです。', exampleTranslation: '我喜歡貓。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_009', word: 'おおきい', reading: 'おおきい', romaji: 'Ookii', translation: '大的', example: 'おおきいいえですね。', exampleTranslation: '好大的房子啊。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_010', word: 'ちいさい', reading: 'ちいさい', romaji: 'Chiisai', translation: '小的', example: 'ちいさいねこがいます。', exampleTranslation: '有一隻小貓。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_011', word: 'いぬ', reading: 'いぬ', romaji: 'Inu', translation: '狗', example: 'いぬがにわであそんでいます。', exampleTranslation: '狗在院子裡玩。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_012', word: 'ねこ', reading: 'ねこ', romaji: 'Neko', translation: '貓', example: 'ねこがそふぁでねています。', exampleTranslation: '貓在沙發上睡覺。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_013', word: 'ほん', reading: 'ほん', romaji: 'Hon', translation: '書', example: 'まいにちほんをよみます。', exampleTranslation: '我每天讀書。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_014', word: 'くるま', reading: 'くるま', romaji: 'Kuruma', translation: '車子', example: 'あのくるまはあかいです。', exampleTranslation: '那輛車是紅色的。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_015', word: 'でんしゃ', reading: 'でんしゃ', romaji: 'Densha', translation: '電車', example: 'でんしゃにのっていきます。', exampleTranslation: '我搭電車去。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_016', word: 'たかい', reading: 'たかい', romaji: 'Takai', translation: '貴的、高的', example: 'このくつはたかいです。', exampleTranslation: '這雙鞋很貴。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_017', word: 'やすい', reading: 'やすい', romaji: 'Yasui', translation: '便宜的', example: 'このみせはやすいです。', exampleTranslation: '這家店很便宜。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_018', word: 'あつい', reading: 'あつい', romaji: 'Atsui', translation: '熱的', example: 'きょうはあついですね。', exampleTranslation: '今天真熱呢。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_019', word: 'さむい', reading: 'さむい', romaji: 'Samui', translation: '冷的', example: 'ふゆはさむいです。', exampleTranslation: '冬天很冷。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_020', word: 'おいしい', reading: 'おいしい', romaji: 'Oishii', translation: '好吃的', example: 'このりょうりはおいしいです。', exampleTranslation: '這道料理很好吃。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_021', word: 'みる', reading: 'みる', romaji: 'Miru', translation: '看', example: 'テレビをみます。', exampleTranslation: '我看電視。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_022', word: 'きく', reading: 'きく', romaji: 'Kiku', translation: '聽、問', example: 'おんがくをききます。', exampleTranslation: '我聽音樂。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_023', word: 'はなす', reading: 'はなす', romaji: 'Hanasu', translation: '說話', example: 'にほんごではなします。', exampleTranslation: '我說日文。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_024', word: 'かく', reading: 'かく', romaji: 'Kaku', translation: '寫', example: 'てがみをかきます。', exampleTranslation: '我寫信。', language: 'japanese', level: 'beginner'),
+  Word(id: 'jp_025', word: 'よむ', reading: 'よむ', romaji: 'Yomu', translation: '讀', example: 'しんぶんをよみます。', exampleTranslation: '我讀報紙。', language: 'japanese', level: 'beginner'),
+
+  // ── Intermediate ──
+  Word(id: 'jp_026', word: '頑張る', reading: 'がんばる', romaji: 'Ganbaru', translation: '加油、努力', example: '試験のために頑張ります。', exampleTranslation: '為了考試我會努力。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_027', word: '大丈夫', reading: 'だいじょうぶ', romaji: 'Daijoubu', translation: '沒問題、還好', example: '大丈夫ですか？', exampleTranslation: '你還好嗎？', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_028', word: '難しい', reading: 'むずかしい', romaji: 'Muzukashii', translation: '困難的', example: 'この問題は難しいです。', exampleTranslation: '這個問題很難。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_029', word: '楽しい', reading: 'たのしい', romaji: 'Tanoshii', translation: '快樂的、有趣的', example: '旅行はとても楽しかった。', exampleTranslation: '旅行非常有趣。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_030', word: '覚える', reading: 'おぼえる', romaji: 'Oboeru', translation: '記住、學會', example: '新しい単語を覚えます。', exampleTranslation: '我記住新單字。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_031', word: '経験', reading: 'けいけん', romaji: 'Keiken', translation: '經驗', example: '海外での経験は貴重です。', exampleTranslation: '海外的經驗很寶貴。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_032', word: '集中', reading: 'しゅうちゅう', romaji: 'Shuuchuu', translation: '集中', example: '勉強に集中しています。', exampleTranslation: '我正在專心讀書。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_033', word: '連絡', reading: 'れんらく', romaji: 'Renraku', translation: '聯絡', example: 'また連絡します。', exampleTranslation: '我再跟你聯絡。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_034', word: '準備', reading: 'じゅんび', romaji: 'Junbi', translation: '準備', example: '出発の準備ができました。', exampleTranslation: '出發的準備好了。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_035', word: '気持ち', reading: 'きもち', romaji: 'Kimochi', translation: '心情、感覺', example: '今日は気持ちがいいです。', exampleTranslation: '今天心情很好。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_036', word: '確認', reading: 'かくにん', romaji: 'Kakunin', translation: '確認', example: 'もう一度確認してください。', exampleTranslation: '請再確認一次。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_037', word: '説明', reading: 'せつめい', romaji: 'Setsumei', translation: '說明', example: '詳しく説明してもらえますか？', exampleTranslation: '可以請你詳細說明嗎？', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_038', word: '約束', reading: 'やくそく', romaji: 'Yakusoku', translation: '約定、承諾', example: '約束を守ることが大切です。', exampleTranslation: '遵守約定很重要。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_039', word: '心配', reading: 'しんぱい', romaji: 'Shinpai', translation: '擔心', example: '心配しないでください。', exampleTranslation: '請不要擔心。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_040', word: '諦める', reading: 'あきらめる', romaji: 'Akirameru', translation: '放棄', example: '絶対に諦めないでください。', exampleTranslation: '絕對不要放棄。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_041', word: '変化', reading: 'へんか', romaji: 'Henka', translation: '變化', example: '季節の変化を楽しむ。', exampleTranslation: '享受季節的變化。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_042', word: '成長', reading: 'せいちょう', romaji: 'Seichou', translation: '成長', example: '子供の成長は早い。', exampleTranslation: '孩子的成長很快。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_043', word: '工夫', reading: 'くふう', romaji: 'Kufuu', translation: '巧思、創意', example: '料理に工夫を凝らす。', exampleTranslation: '在料理上下功夫。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_044', word: '失敗', reading: 'しっぱい', romaji: 'Shippai', translation: '失敗', example: '失敗から学ぶことが多い。', exampleTranslation: '從失敗中學到很多。', language: 'japanese', level: 'intermediate'),
+  Word(id: 'jp_045', word: '成功', reading: 'せいこう', romaji: 'Seikou', translation: '成功', example: '努力すれば成功できる。', exampleTranslation: '只要努力就能成功。', language: 'japanese', level: 'intermediate'),
+
+  // ── Advanced ──
+  Word(id: 'jp_046', word: '一期一会', reading: 'いちごいちえ', romaji: 'Ichigo ichie', translation: '一期一會（每次相遇都是唯一）', example: '一期一会の精神で人と接します。', exampleTranslation: '以一期一會的精神與人交往。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_047', word: '木漏れ日', reading: 'こもれび', romaji: 'Komorebi', translation: '陽光穿過樹葉灑落的光影', example: '公園で木漏れ日を楽しんだ。', exampleTranslation: '在公園享受樹葉間灑落的陽光。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_048', word: '侘び寂び', reading: 'わびさび', romaji: 'Wabi-sabi', translation: '殘缺之美（日本美學概念）', example: '侘び寂びは日本文化の核心です。', exampleTranslation: '侘寂是日本文化的核心。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_049', word: '試行錯誤', reading: 'しこうさくご', romaji: 'Shikou sakugo', translation: '反覆試驗、試誤', example: '試行錯誤しながら解決策を見つけた。', exampleTranslation: '在不斷嘗試中找到了解決方法。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_050', word: '自業自得', reading: 'じごうじとく', romaji: 'Jigou jitoku', translation: '自作自受', example: '失敗したのは自業自得だ。', exampleTranslation: '失敗是自作自受。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_051', word: '以心伝心', reading: 'いしんでんしん', romaji: 'Ishin denshin', translation: '心心相印、心靈相通', example: '二人は以心伝心で通じ合っている。', exampleTranslation: '兩人心靈相通。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_052', word: '七転八起', reading: 'しちてんはっき', romaji: 'Shichiten hakki', translation: '屢敗屢起、跌倒七次爬起八次', example: '七転八起の精神で挑戦し続ける。', exampleTranslation: '以屢敗屢起的精神持續挑戰。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_053', word: '温故知新', reading: 'おんこちしん', romaji: 'Onko chishin', translation: '溫故知新', example: '温故知新の大切さを学んだ。', exampleTranslation: '學到了溫故知新的重要性。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_054', word: '縁起', reading: 'えんぎ', romaji: 'Engi', translation: '緣分、吉兆', example: '縁起がいい日に始める。', exampleTranslation: '選個吉日開始。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_055', word: '物の哀れ', reading: 'もののあわれ', romaji: 'Mono no aware', translation: '物哀（對事物無常的感悟）', example: '桜の散る様に物の哀れを感じる。', exampleTranslation: '從櫻花飄落中感受到物哀。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_056', word: '空気を読む', reading: 'くうきをよむ', romaji: 'Kuuki wo yomu', translation: '察言觀色、讀空氣', example: '空気を読んで発言する。', exampleTranslation: '察言觀色後再發言。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_057', word: '切磋琢磨', reading: 'せっさたくま', romaji: 'Sessa takuma', translation: '切磋琢磨、互相砥礪', example: '仲間と切磋琢磨して成長した。', exampleTranslation: '與夥伴切磋琢磨而成長。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_058', word: '一石二鳥', reading: 'いっせきにちょう', romaji: 'Isseki nichou', translation: '一石二鳥', example: '運動すれば健康と気分転換、一石二鳥だ。', exampleTranslation: '運動既健康又轉換心情，一石二鳥。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_059', word: '十人十色', reading: 'じゅうにんといろ', romaji: 'Juunin toiro', translation: '十人十色、人各有志', example: '十人十色、みんな考え方が違う。', exampleTranslation: '人各有志，大家的想法都不同。', language: 'japanese', level: 'advanced'),
+  Word(id: 'jp_060', word: '花鳥風月', reading: 'かちょうふうげつ', romaji: 'Kachou fuugetsu', translation: '花鳥風月、自然之美', example: '花鳥風月を愛でる日本の文化。', exampleTranslation: '欣賞花鳥風月的日本文化。', language: 'japanese', level: 'advanced'),
+];
+
+List<Word> getWords({required String language, required String level}) {
+  final all = language == 'english' ? englishWords : japaneseWords;
+  return all.where((w) => w.level == level).toList();
+}
