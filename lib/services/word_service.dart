@@ -22,6 +22,14 @@ class WordService {
     return [];
   }
 
+  static Future<bool> updateBook(int bookId, String name, String language) async {
+    final res = await ApiService.put('/api/books/$bookId', {
+      'name': name,
+      'language': language,
+    });
+    return res.statusCode == 200;
+  }
+
   static Future<void> submitResult(int wordId, bool correct) async {
     await ApiService.post('/api/study/result', {
       'wordId': wordId,

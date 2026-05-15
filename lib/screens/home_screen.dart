@@ -40,6 +40,80 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _editBook(WordBook book) async {
+    final nameCtrl = TextEditingController(text: book.name);
+    String selectedLanguage = book.language;
+
+    await showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setDialogState) => AlertDialog(
+          backgroundColor: const Color(0xFF1A1A2E),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: const Text('編輯單字本', style: TextStyle(color: Colors.white)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameCtrl,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: '名稱',
+                  labelStyle: const TextStyle(color: Colors.white54),
+                  filled: true,
+                  fillColor: Colors.white10,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 12),
+              DropdownButtonFormField<String>(
+                value: selectedLanguage,
+                dropdownColor: const Color(0xFF1A1A2E),
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: '語言',
+                  labelStyle: const TextStyle(color: Colors.white54),
+                  filled: true,
+                  fillColor: Colors.white10,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'JAPANESE', child: Text('🇯🇵 日文')),
+                  DropdownMenuItem(value: 'ENGLISH', child: Text('🇺🇸 英文')),
+                ],
+                onChanged: (v) => setDialogState(() => selectedLanguage = v!),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('取消', style: TextStyle(color: Colors.white54)),
+            ),
+            TextButton(
+              onPressed: () async {
+                final name = nameCtrl.text.trim();
+                if (name.isEmpty) return;
+                final ok = await WordService.updateBook(book.id, name, selectedLanguage);
+                if (!context.mounted) return;
+                Navigator.pop(ctx);
+                if (ok) {
+                  _load();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('更新失敗，請稍後再試')),
+                  );
+                }
+              },
+              child: const Text('儲存', style: TextStyle(color: Color(0xFF7C6AFA))),
+            ),
+          ],
+        ),
+      ),
+    );
+    nameCtrl.dispose();
+  }
+
   Future<void> _goToStudy(WordBook book) async {
     await Navigator.push(
       context,
@@ -198,6 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return GestureDetector(
       onTap: book.wordCount > 0 ? () => _goToStudy(book) : null,
+      onLongPress: () => _editBook(book),
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(

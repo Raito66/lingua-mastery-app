@@ -47,4 +47,15 @@ class ApiService {
     if (res.statusCode == 401) _handleUnauthorized();
     return res;
   }
+
+  static Future<http.Response> put(String path, Map<String, dynamic> body) async {
+    final headers = await _headers();
+    final res = await http.put(
+      Uri.parse('$baseUrl$path'),
+      headers: headers,
+      body: jsonEncode(body),
+    );
+    if (res.statusCode == 401) _handleUnauthorized();
+    return res;
+  }
 }
