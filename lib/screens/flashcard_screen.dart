@@ -7,8 +7,9 @@ import 'result_screen.dart';
 
 class FlashcardScreen extends StatefulWidget {
   final WordBook book;
+  final bool isReviewMode;
 
-  const FlashcardScreen({super.key, required this.book});
+  const FlashcardScreen({super.key, required this.book, this.isReviewMode = false});
 
   @override
   State<FlashcardScreen> createState() => _FlashcardScreenState();
@@ -28,7 +29,9 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
   }
 
   Future<void> _loadWords() async {
-    final words = await WordService.getStudyWords(widget.book.id);
+    final words = widget.isReviewMode
+        ? await WordService.getReviewWords(widget.book.id)
+        : await WordService.getStudyWords(widget.book.id);
     if (mounted) {
       setState(() {
         _words = words;
@@ -39,14 +42,26 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
 
   void _handleKnow() {
     final wordId = int.tryParse(_words[_currentIndex].id);
-    if (wordId != null) WordService.submitResult(wordId, true);
+    if (wordId != null) {
+      if (widget.isReviewMode) {
+        WordService.submitReview(wordId, true).catchError((_) {});
+      } else {
+        WordService.submitResult(wordId, true);
+      }
+    }
     setState(() => _knownCount++);
     _nextCard();
   }
 
   void _handleDontKnow() {
     final wordId = int.tryParse(_words[_currentIndex].id);
-    if (wordId != null) WordService.submitResult(wordId, false);
+    if (wordId != null) {
+      if (widget.isReviewMode) {
+        WordService.submitReview(wordId, false).catchError((_) {});
+      } else {
+        WordService.submitResult(wordId, false);
+      }
+    }
     setState(() => _dontKnowCount++);
     _nextCard();
   }

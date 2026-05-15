@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<WordBook> _books = [];
   Map<String, dynamic>? _stats;
+  Map<int, int> _reviewCounts = {};
   bool _loading = true;
   String _email = '';
 
@@ -30,11 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final email = prefs.getString('email') ?? '';
     final books = await WordService.getBooks();
     final stats = await WordService.getStats();
+    final reviewCounts = await WordService.getReviewStats();
     if (mounted) {
       setState(() {
         _email = email;
         _books = books;
         _stats = stats;
+        _reviewCounts = reviewCounts;
         _loading = false;
       });
     }
@@ -117,9 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _goToStudy(WordBook book) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => FlashcardScreen(book: book),
-      ),
+      MaterialPageRoute(builder: (_) => FlashcardScreen(book: book)),
+    );
+    if (mounted) _load();
+  }
+
+  Future<void> _goToReview(WordBook book) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => FlashcardScreen(book: book, isReviewMode: true)),
     );
     if (mounted) _load();
   }
@@ -302,21 +311,68 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            book.wordCount > 0
-                ? Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: color.withOpacity(0.3)),
+            if (book.wordCount > 0)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () => _goToStudy(book),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: color.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: color.withOpacity(0.3)),
+                      ),
+                      child: Text('測驗',
+                          style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold)),
                     ),
-                    child: Text(
-                      '開始測驗',
-                      style: TextStyle(
-                          color: color, fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 6),
+                  GestureDetector(
+                    onTap: () => _goToReview(book),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF7C6AFA).withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: const Color(0xFF7C6AFA).withOpacity(0.3)),
+                          ),
+                          child: const Text('複習',
+                              style: TextStyle(
+                                  color: Color(0xFF7C6AFA),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        if ((_reviewCounts[book.id] ?? 0) > 0)
+                          Positioned(
+                            top: -6,
+                            right: -6,
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFFF5252),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                '${_reviewCounts[book.id]}',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
-                  )
-                : Text('無單字', style: TextStyle(color: Colors.white38, fontSize: 12)),
+                  ),
+                ],
+              )
+            else
+              Text('無單字', style: TextStyle(color: Colors.white38, fontSize: 12)),
           ],
         ),
       ),
