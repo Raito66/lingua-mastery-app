@@ -16,6 +16,7 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 與 We
 - **語言**：Dart
 - **HTTP**：http 套件
 - **本地儲存**：shared_preferences
+- **TTS**：flutter_tts
 - **目標平台**：Android、Web
 
 ### 主要功能
@@ -24,7 +25,7 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 與 We
 - Email 驗證流程
 - 忘記密碼 / 重設密碼（Token 手動輸入）
 - 單字書管理（長按編輯名稱、語言）
-- 閃卡學習模式
+- 閃卡學習模式（含自動朗讀 TTS + 🔊 手動重播）
 - 間隔重複複習（SRS）
 - 學習結果統計
 
@@ -82,6 +83,7 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - **Language**: Dart
 - **HTTP**: http package
 - **Local Storage**: shared_preferences
+- **TTS**: flutter_tts
 - **Platforms**: Android, Web
 
 ### Features
@@ -90,7 +92,7 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - Email verification flow
 - Forgot password / password reset (manual token entry)
 - Vocabulary book management (long-press to edit name & language)
-- Flashcard study mode
+- Flashcard study mode (with auto TTS + 🔊 manual replay)
 - Spaced repetition review (SRS)
 - Learning result statistics
 
@@ -138,6 +140,11 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.4.0 (2026-05-16)
+- 新增 TTS 發音功能（閃卡自動朗讀 + 🔊 手動重播按鈕）
+- 修正首次播放聲音模糊問題（TTS 引擎預熱）
+- 語速調整至 0.7，適合語言學習節奏
+
 ### v0.3.0 (2026-05-15)
 - 新增 SRS 複習模式（閃卡複習 + 到期單字優先排程）
 - 首頁書卡顯示今日待複習數量紅點
@@ -150,6 +157,11 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.4.0 (2026-05-16)
+- Added TTS pronunciation (auto-play on flashcard + 🔊 manual replay button)
+- Fixed muffled first playback (TTS engine warm-up)
+- Adjusted speech rate to 0.7 for better language learning experience
 
 ### v0.3.0 (2026-05-15)
 - Added SRS review mode (flashcard review with due-first scheduling)
