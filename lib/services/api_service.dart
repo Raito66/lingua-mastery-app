@@ -58,4 +58,11 @@ class ApiService {
     if (res.statusCode == 401) _handleUnauthorized();
     return res;
   }
+
+  static Future<http.Response> delete(String path) async {
+    final headers = await _headers();
+    final res = await http.delete(Uri.parse('$baseUrl$path'), headers: headers);
+    if (res.statusCode == 401) _handleUnauthorized();
+    return res;
+  }
 }

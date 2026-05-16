@@ -51,12 +51,25 @@ class WordService {
     return {};
   }
 
+  static Future<bool> createBook(String name, String language) async {
+    final res = await ApiService.post('/api/books', {
+      'name': name,
+      'language': language,
+    });
+    return res.statusCode == 200;
+  }
+
   static Future<bool> updateBook(int bookId, String name, String language) async {
     final res = await ApiService.put('/api/books/$bookId', {
       'name': name,
       'language': language,
     });
     return res.statusCode == 200;
+  }
+
+  static Future<bool> deleteBook(int bookId) async {
+    final res = await ApiService.delete('/api/books/$bookId');
+    return res.statusCode == 204;
   }
 
   static Future<void> submitResult(int wordId, bool correct) async {
