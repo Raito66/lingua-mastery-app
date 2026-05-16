@@ -24,7 +24,7 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 與 We
 - 使用者註冊 / 登入
 - Email 驗證流程
 - 忘記密碼 / 重設密碼（Token 手動輸入）
-- 單字書管理（長按編輯名稱、語言）
+- 單字書管理（新增、長按編輯名稱 / 語言 / 刪除）
 - 閃卡學習模式（含自動朗讀 TTS + 🔊 手動重播）
 - 間隔重複複習（SRS）
 - 學習結果統計
@@ -91,7 +91,7 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - User registration / login
 - Email verification flow
 - Forgot password / password reset (manual token entry)
-- Vocabulary book management (long-press to edit name & language)
+- Vocabulary book management (create, long-press to edit name / language / delete)
 - Flashcard study mode (with auto TTS + 🔊 manual replay)
 - Spaced repetition review (SRS)
 - Learning result statistics
@@ -140,6 +140,10 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.4.1 (2026-05-16)
+- 新增單字本新增功能（右下角 FAB）
+- 長按書卡可刪除單字本（附確認對話框）
+
 ### v0.4.0 (2026-05-16)
 - 新增 TTS 發音功能（閃卡自動朗讀 + 🔊 手動重播按鈕）
 - 修正首次播放聲音模糊問題（TTS 引擎預熱）
@@ -157,6 +161,10 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.4.1 (2026-05-16)
+- Added vocabulary book creation (FAB button on home screen)
+- Added vocabulary book deletion via long-press (with confirmation dialog)
 
 ### v0.4.0 (2026-05-16)
 - Added TTS pronunciation (auto-play on flashcard + 🔊 manual replay button)
