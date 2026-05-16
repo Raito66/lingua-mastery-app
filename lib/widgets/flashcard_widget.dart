@@ -6,12 +6,14 @@ class FlashcardWidget extends StatefulWidget {
   final Word word;
   final VoidCallback onKnow;
   final VoidCallback onDontKnow;
+  final VoidCallback? onSpeak;
 
   const FlashcardWidget({
     super.key,
     required this.word,
     required this.onKnow,
     required this.onDontKnow,
+    this.onSpeak,
   });
 
   @override
@@ -82,7 +84,7 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
                   ..setEntry(3, 2, 0.001)
                   ..rotateY(angle),
                 child: isFrontVisible
-                    ? _CardFace(word: widget.word, isFront: true)
+                    ? _CardFace(word: widget.word, isFront: true, onSpeak: widget.onSpeak)
                     : Transform(
                         alignment: Alignment.center,
                         transform: Matrix4.identity()..rotateY(math.pi),
@@ -132,8 +134,9 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
 class _CardFace extends StatelessWidget {
   final Word word;
   final bool isFront;
+  final VoidCallback? onSpeak;
 
-  const _CardFace({required this.word, required this.isFront});
+  const _CardFace({required this.word, required this.isFront, this.onSpeak});
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +219,13 @@ class _CardFace extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 16),
-          const Icon(Icons.touch_app_rounded, color: Colors.white24, size: 28),
+          if (onSpeak != null)
+            GestureDetector(
+              onTap: onSpeak,
+              child: const Icon(Icons.volume_up_rounded, color: Colors.white38, size: 28),
+            )
+          else
+            const Icon(Icons.touch_app_rounded, color: Colors.white24, size: 28),
         ],
       ),
     );

@@ -41,14 +41,17 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
   @override
   void initState() {
     super.initState();
-    _initTts();
-    _loadWords();
+    _initTts().then((_) => _loadWords()).catchError((_) => _loadWords());
   }
 
   Future<void> _initTts() async {
     final lang = widget.book.language == 'JAPANESE' ? 'ja-JP' : 'en-US';
     await _tts.setLanguage(lang);
-    await _tts.setSpeechRate(0.9);
+    await _tts.setSpeechRate(0.7);
+    // 預熱 TTS 引擎，避免第一次播放聲音模糊
+    await _tts.speak('.');
+    await Future.delayed(const Duration(milliseconds: 300));
+    await _tts.stop();
   }
 
   Future<void> _loadWords() async {
@@ -208,6 +211,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                   word: _words[_currentIndex],
                   onKnow: _handleKnow,
                   onDontKnow: _handleDontKnow,
+                  onSpeak: () => _speak(_words[_currentIndex].word),
                 ),
               ),
             ),
