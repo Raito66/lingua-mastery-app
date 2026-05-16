@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import '../models/word.dart';
 import '../models/word_book.dart';
 import '../services/word_service.dart';
@@ -22,10 +23,32 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
   int _dontKnowCount = 0;
   bool _loading = true;
 
+  final FlutterTts _tts = FlutterTts();
+  bool _disposed = false;
+
+  Future<void> _speak(String text) async {
+    if (_disposed) return;
+    await _tts.speak(text);
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    _tts.stop();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
+    _initTts();
     _loadWords();
+  }
+
+  Future<void> _initTts() async {
+    final lang = widget.book.language == 'JAPANESE' ? 'ja-JP' : 'en-US';
+    await _tts.setLanguage(lang);
+    await _tts.setSpeechRate(0.9);
   }
 
   Future<void> _loadWords() async {
@@ -37,6 +60,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
         _words = words;
         _loading = false;
       });
+      if (words.isNotEmpty) _speak(words[0].word);
     }
   }
 
@@ -71,6 +95,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
       _finish();
     } else {
       setState(() => _currentIndex++);
+      _speak(_words[_currentIndex].word);
     }
   }
 
