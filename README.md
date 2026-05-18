@@ -28,6 +28,7 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 與 We
 - 閃卡學習模式（含自動朗讀 TTS + 🔊 手動重播）
 - 間隔重複複習（SRS）
 - 學習結果統計
+- 每日學習 Streak（🔥 連續天數 + 今日練習數）
 
 ### 本地啟動
 
@@ -95,6 +96,7 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - Flashcard study mode (with auto TTS + 🔊 manual replay)
 - Spaced repetition review (SRS)
 - Learning result statistics
+- Daily learning streak (🔥 consecutive days + today's count)
 
 ### Getting Started
 
@@ -140,6 +142,9 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.5.0 (2026-05-19)
+- 首頁新增 🔥 Streak 顯示（連續天數 + 今日練習數）
+
 ### v0.4.1 (2026-05-16)
 - 新增單字本新增功能（右下角 FAB）
 - 長按書卡可刪除單字本（附確認對話框）
@@ -161,6 +166,9 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.5.0 (2026-05-19)
+- Added 🔥 Streak display on home screen (consecutive days + today's count)
 
 ### v0.4.1 (2026-05-16)
 - Added vocabulary book creation (FAB button on home screen)
