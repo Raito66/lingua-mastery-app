@@ -86,4 +86,12 @@ class WordService {
     }
     return null;
   }
+
+  static Future<Map<String, dynamic>?> getStreak() async {
+    final res = await ApiService.get('/api/stats/streak');
+    if (res.statusCode == 200) {
+      return jsonDecode(res.body);
+    }
+    return null;
+  }
 }

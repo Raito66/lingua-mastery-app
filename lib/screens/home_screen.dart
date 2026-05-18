@@ -17,6 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<WordBook> _books = [];
   Map<String, dynamic>? _stats;
   Map<int, int> _reviewCounts = {};
+  int _streak = 0;
+  int _todayCount = 0;
   bool _loading = true;
   String _email = '';
 
@@ -29,15 +31,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
     final email = prefs.getString('email') ?? '';
-    final books = await WordService.getBooks();
-    final stats = await WordService.getStats();
-    final reviewCounts = await WordService.getReviewStats();
+    final results = await Future.wait([
+      WordService.getBooks(),
+      WordService.getStats(),
+      WordService.getReviewStats(),
+      WordService.getStreak(),
+    ]);
+    final books = results[0] as List<WordBook>;
+    final stats = results[1] as Map<String, dynamic>?;
+    final reviewCounts = results[2] as Map<int, int>;
+    final streakData = results[3] as Map<String, dynamic>?;
     if (mounted) {
       setState(() {
         _email = email;
         _books = books;
         _stats = stats;
         _reviewCounts = reviewCounts;
+        _streak = (streakData?['streak'] as int?) ?? 0;
+        _todayCount = (streakData?['todayCount'] as int?) ?? 0;
         _loading = false;
       });
     }
@@ -346,7 +357,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildStatsRow() {
     final total = _stats!['totalStudied'] ?? 0;
-    final correct = _stats!['totalCorrect'] ?? 0;
     final accuracy = _stats!['accuracy'] ?? 0.0;
     return Container(
       padding: const EdgeInsets.all(20),
@@ -357,9 +367,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Row(
         children: [
-          _buildStat('📊 學習次數', '$total'),
+          _buildStat('🔥 連續天數', '$_streak'),
           _buildDivider(),
-          _buildStat('✅ 答對', '$correct'),
+          _buildStat('📖 今日練習', '$_todayCount'),
+          _buildDivider(),
+          _buildStat('📊 學習次數', '$total'),
           _buildDivider(),
           _buildStat('🎯 正確率', '${(accuracy as num).toStringAsFixed(1)}%'),
         ],
