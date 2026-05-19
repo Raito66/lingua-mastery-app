@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   static String get baseUrl =>
-      kIsWeb ? 'http://localhost:8080' : 'http://10.0.2.2:8080';
+      kIsWeb ? 'http://localhost:8080' : 'https://lingua-mastery-api.onrender.com';
 
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
