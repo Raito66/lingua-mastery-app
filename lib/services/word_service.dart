@@ -14,6 +14,15 @@ class WordService {
     return [];
   }
 
+  static Future<List<Word>> getWords(int bookId) async {
+    final res = await ApiService.get('/api/books/$bookId/words');
+    if (res.statusCode == 200) {
+      final List data = jsonDecode(res.body);
+      return data.map((e) => Word.fromApiJson(e)).toList();
+    }
+    throw Exception('載入單字失敗 (${res.statusCode})');
+  }
+
   static Future<List<Word>> getStudyWords(int bookId) async {
     final res = await ApiService.get('/api/study/$bookId');
     if (res.statusCode == 200) {

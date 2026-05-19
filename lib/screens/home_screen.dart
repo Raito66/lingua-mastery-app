@@ -5,6 +5,7 @@ import '../services/word_service.dart';
 import '../services/auth_service.dart';
 import 'flashcard_screen.dart';
 import 'quiz_screen.dart';
+import 'word_list_screen.dart';
 import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -242,6 +243,14 @@ class _HomeScreenState extends State<HomeScreen> {
     nameCtrl.dispose();
   }
 
+  Future<void> _goToWordList(WordBook book) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => WordListScreen(book: book)),
+    );
+    if (mounted) _load();
+  }
+
   Future<void> _goToStudy(WordBook book) async {
     await Navigator.push(
       context,
@@ -417,115 +426,145 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBookCard(WordBook book) {
     final isJapanese = book.language == 'JAPANESE';
     final color = isJapanese ? const Color(0xFFE53935) : const Color(0xFF3D5AFE);
+    final reviewCount = _reviewCounts[book.id] ?? 0;
 
-    return GestureDetector(
-      onTap: book.wordCount > 0 ? () => _goToStudy(book) : null,
-      onLongPress: () => _editBook(book),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: const Color(0xFF1A1A2E),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: color.withOpacity(0.2)),
-        ),
-        child: Row(
-          children: [
-            Text(isJapanese ? '🇯🇵' : '🇺🇸',
-                style: const TextStyle(fontSize: 36)),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(book.name,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${book.wordCount} 個單字',
-                    style: const TextStyle(color: Colors.white54, fontSize: 12),
-                  ),
-                ],
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A2E),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── 頂部：旗幟 + 書名 + ⋮ ──
+          Row(
+            children: [
+              Text(isJapanese ? '🇯🇵' : '🇺🇸',
+                  style: const TextStyle(fontSize: 28)),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(book.name,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold)),
               ),
-            ),
-            if (book.wordCount > 0)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () => _goToStudy(book),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: color.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: color.withOpacity(0.3)),
-                      ),
-                      child: Text('閃卡',
-                          style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  GestureDetector(
-                    onTap: () => _goToQuiz(book),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.07),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white.withOpacity(0.2)),
-                      ),
-                      child: const Text('選擇題',
-                          style: TextStyle(color: Colors.white54, fontSize: 12, fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  GestureDetector(
-                    onTap: () => _goToReview(book),
-                    child: Stack(
-                      clipBehavior: Clip.none,
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert_rounded,
+                    color: Colors.white38, size: 20),
+                color: const Color(0xFF1A1A2E),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                onSelected: (value) {
+                  if (value == 'edit') _editBook(book);
+                },
+                itemBuilder: (_) => [
+                  const PopupMenuItem(
+                    value: 'edit',
+                    child: Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF7C6AFA).withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: const Color(0xFF7C6AFA).withOpacity(0.3)),
-                          ),
-                          child: const Text('複習',
-                              style: TextStyle(
-                                  color: Color(0xFF7C6AFA),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                        if ((_reviewCounts[book.id] ?? 0) > 0)
-                          Positioned(
-                            top: -6,
-                            right: -6,
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFFF5252),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Text(
-                                '${_reviewCounts[book.id]}',
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
+                        Icon(Icons.edit_outlined, color: Colors.white70, size: 18),
+                        SizedBox(width: 10),
+                        Text('編輯 / 刪除',
+                            style: TextStyle(color: Colors.white70)),
                       ],
                     ),
                   ),
                 ],
-              )
-            else
-              Text('無單字', style: TextStyle(color: Colors.white38, fontSize: 12)),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.only(left: 40),
+            child: Text('${book.wordCount} 個單字',
+                style: const TextStyle(color: Colors.white38, fontSize: 12)),
+          ),
+          if (book.wordCount > 0) ...[
+            const SizedBox(height: 16),
+            // ── 底部：四個等寬按鈕 ──
+            Row(
+              children: [
+                _bookBtn('單字', Colors.white54, Colors.white12,
+                    Colors.white24, () => _goToWordList(book)),
+                const SizedBox(width: 8),
+                _bookBtn('閃卡', color, color.withOpacity(0.15),
+                    color.withOpacity(0.3), () => _goToStudy(book)),
+                const SizedBox(width: 8),
+                _bookBtn('選擇題', Colors.white54, Colors.white.withOpacity(0.07),
+                    Colors.white.withOpacity(0.2), () => _goToQuiz(book)),
+                const SizedBox(width: 8),
+                _bookBtnWithBadge('複習', const Color(0xFF7C6AFA),
+                    const Color(0xFF7C6AFA), reviewCount,
+                    () => _goToReview(book)),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _bookBtn(String label, Color textColor, Color bgColor,
+      Color borderColor, VoidCallback onTap) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(
+            color: bgColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: borderColor),
+          ),
+          alignment: Alignment.center,
+          child: Text(label,
+              style: TextStyle(
+                  color: textColor, fontSize: 12, fontWeight: FontWeight.bold)),
+        ),
+      ),
+    );
+  }
+
+  Widget _bookBtnWithBadge(String label, Color textColor, Color accentColor,
+      int badgeCount, VoidCallback onTap) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: accentColor.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: accentColor.withOpacity(0.3)),
+              ),
+              alignment: Alignment.center,
+              child: Text(label,
+                  style: TextStyle(
+                      color: textColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
+            ),
+            if (badgeCount > 0)
+              Positioned(
+                top: -6,
+                right: -6,
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                      color: Color(0xFFFF5252), shape: BoxShape.circle),
+                  child: Text('$badgeCount',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
           ],
         ),
       ),

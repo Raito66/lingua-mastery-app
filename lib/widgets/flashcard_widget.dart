@@ -172,25 +172,53 @@ class _CardFace extends StatelessWidget {
     );
   }
 
+  ({String label, Color color}) _proficiencyBadge(int level) {
+    switch (level) {
+      case 3: return (label: '已精通', color: const Color(0xFFCE93D8));
+      case 2: return (label: '已熟悉', color: const Color(0xFF69F0AE));
+      case 1: return (label: '學習中', color: const Color(0xFFFFD54F));
+      default: return (label: '未學習', color: Colors.white38);
+    }
+  }
+
   Widget _buildFront() {
     final isJapanese = word.language == 'japanese';
+    final profBadge = _proficiencyBadge(word.proficiencyLevel);
     return Padding(
       padding: const EdgeInsets.all(32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // 語言標籤
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFF7C6AFA).withOpacity(0.2),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFF7C6AFA).withOpacity(0.5)),
-            ),
-            child: Text(
-              isJapanese ? '🇯🇵 日文' : '🇺🇸 英文',
-              style: const TextStyle(color: Color(0xFF7C6AFA), fontSize: 12),
-            ),
+          // 語言標籤 + 熟練度徽章
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF7C6AFA).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: const Color(0xFF7C6AFA).withOpacity(0.5)),
+                ),
+                child: Text(
+                  isJapanese ? '🇯🇵 日文' : '🇺🇸 英文',
+                  style: const TextStyle(color: Color(0xFF7C6AFA), fontSize: 12),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: profBadge.color.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: profBadge.color.withOpacity(0.5)),
+                ),
+                child: Text(
+                  profBadge.label,
+                  style: TextStyle(color: profBadge.color, fontSize: 12),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 24),
           // 單字

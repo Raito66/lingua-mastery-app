@@ -8,6 +8,7 @@ class Word {
   final String exampleTranslation;
   final String language;          // 'english' | 'japanese'
   final String level;             // 'beginner' | 'intermediate' | 'advanced'
+  final int proficiencyLevel;     // 0=未學習 1=學習中 2=已熟悉 3=已精通
 
   const Word({
     required this.id,
@@ -19,6 +20,7 @@ class Word {
     this.exampleTranslation = '',
     required this.language,
     required this.level,
+    this.proficiencyLevel = 0,
   });
 
   factory Word.fromJson(Map<String, dynamic> json, String language) {
@@ -47,6 +49,7 @@ class Word {
       exampleTranslation: '',
       language: (json['language'] as String).toLowerCase(),
       level: _mapLevel(json['level'] as String? ?? ''),
+      proficiencyLevel: (json['proficiencyLevel'] as int?) ?? 0,
     );
   }
 

@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
+  final _passwordFocus = FocusNode();
   bool _isLogin = true;
   bool _loading = false;
   String? _error;
@@ -71,6 +72,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void dispose() {
+    _emailCtrl.dispose();
+    _passwordCtrl.dispose();
+    _passwordFocus.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),
@@ -120,13 +129,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailCtrl,
                   keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(color: Colors.black87),
+                  textInputAction: TextInputAction.next,
+                  onSubmitted: (_) => FocusScope.of(context).requestFocus(_passwordFocus),
                   decoration: _inputDecoration('Email'),
                 ),
                 const SizedBox(height: 12),
                 TextField(
                   controller: _passwordCtrl,
+                  focusNode: _passwordFocus,
                   obscureText: true,
                   style: const TextStyle(color: Colors.black87),
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (_) { if (!_loading) _submit(); },
                   decoration: _inputDecoration('密碼'),
                 ),
                 const SizedBox(height: 12),
