@@ -119,12 +119,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   controller: _emailCtrl,
                   keyboardType: TextInputType.emailAddress,
+                  style: const TextStyle(color: Colors.black87),
                   decoration: _inputDecoration('Email'),
                 ),
                 const SizedBox(height: 12),
                 TextField(
                   controller: _passwordCtrl,
                   obscureText: true,
+                  style: const TextStyle(color: Colors.black87),
                   decoration: _inputDecoration('密碼'),
                 ),
                 const SizedBox(height: 12),

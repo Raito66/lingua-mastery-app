@@ -4,6 +4,7 @@ import '../models/word_book.dart';
 import '../services/word_service.dart';
 import '../services/auth_service.dart';
 import 'flashcard_screen.dart';
+import 'quiz_screen.dart';
 import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -249,6 +250,14 @@ class _HomeScreenState extends State<HomeScreen> {
     if (mounted) _load();
   }
 
+  Future<void> _goToQuiz(WordBook book) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => QuizScreen(book: book)),
+    );
+    if (mounted) _load();
+  }
+
   Future<void> _goToReview(WordBook book) async {
     await Navigator.push(
       context,
@@ -454,8 +463,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: color.withOpacity(0.3)),
                       ),
-                      child: Text('測驗',
+                      child: Text('閃卡',
                           style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  GestureDetector(
+                    onTap: () => _goToQuiz(book),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.07),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.white.withOpacity(0.2)),
+                      ),
+                      child: const Text('選擇題',
+                          style: TextStyle(color: Colors.white54, fontSize: 12, fontWeight: FontWeight.bold)),
                     ),
                   ),
                   const SizedBox(height: 6),

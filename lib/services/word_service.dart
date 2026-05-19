@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../models/word.dart';
 import '../models/word_book.dart';
+import '../models/quiz_question.dart';
 import 'api_service.dart';
 
 class WordService {
@@ -93,5 +94,14 @@ class WordService {
       return jsonDecode(res.body);
     }
     return null;
+  }
+
+  static Future<List<QuizQuestion>> getQuizQuestions(int bookId) async {
+    final res = await ApiService.get('/api/quiz/$bookId');
+    if (res.statusCode == 200) {
+      final List data = jsonDecode(res.body);
+      return data.map((e) => QuizQuestion.fromJson(e)).toList();
+    }
+    return [];
   }
 }
