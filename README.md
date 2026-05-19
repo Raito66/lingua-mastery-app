@@ -2,13 +2,15 @@
 
 [English](#english) | [繁體中文](#繁體中文)
 
+> **下載 APK**：[GitHub Releases](https://github.com/Raito66/lingua-mastery-app/releases)
+
 ---
 
 ## 繁體中文
 
 ### 專案簡介
 
-LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 與 Web 平台。提供使用者登入、單字書管理、閃卡學習與學習記錄等功能。
+LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 平台。提供使用者登入、單字書管理、閃卡學習、選擇題測驗與 SRS 複習等功能。
 
 ### 技術棧
 
@@ -17,27 +19,35 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 與 We
 - **HTTP**：http 套件
 - **本地儲存**：shared_preferences
 - **TTS**：flutter_tts
-- **目標平台**：Android、Web
+- **目標平台**：Android
+- **後端 API**：https://lingua-mastery-api.onrender.com
 
 ### 主要功能
 
-- 使用者註冊 / 登入
+- 使用者註冊 / 登入（Enter 鍵切換欄位）
 - Email 驗證流程
 - 忘記密碼 / 重設密碼（Token 手動輸入）
-- 單字書管理（新增、長按編輯名稱 / 語言 / 刪除）
-- 閃卡學習模式（含自動朗讀 TTS + 🔊 手動重播）
+- 單字書管理（⋮ 選單編輯 / 刪除）
+- 單字列表（含熟練度進度條 + 各等級統計）
+- 閃卡學習模式（含自動朗讀 TTS + 🔊 手動重播 + 熟練度 badge）
 - 選擇題測驗（四選一，答後顯示綠✓紅✗）
 - 間隔重複複習（SRS）
 - 學習結果統計
 - 每日學習 Streak（🔥 連續天數 + 今日練習數）
 
-### 本地啟動
+### 安裝（手機直接使用）
+
+1. 前往 [GitHub Releases](https://github.com/Raito66/lingua-mastery-app/releases)
+2. 下載最新版 `LinguaMastery-vX.X.X.apk`
+3. 手機開啟檔案，允許「安裝未知來源應用程式」
+4. 安裝完成即可使用
+
+### 本地開發
 
 #### 前置條件
 
 - Flutter 3.x SDK
 - Android Studio（含 Android 模擬器）
-- 後端 API 運行中
 
 #### 安裝與啟動
 
@@ -46,8 +56,8 @@ flutter pub get
 flutter run
 ```
 
-- **Android 模擬器**：API 連線至 `http://10.0.2.2:8080`
-- **Web / Windows**：API 連線至 `http://localhost:8080`
+> 注意：App 預設連線至 Render 正式環境（`https://lingua-mastery-api.onrender.com`）。
+> 本地開發若需連線至本機後端，請修改 `lib/services/api_service.dart` 的 `baseUrl`。
 
 ### 專案結構
 
@@ -58,16 +68,21 @@ lib/
 │   ├── word.dart
 │   └── word_book.dart
 ├── services/
-│   ├── api_service.dart    # HTTP 基礎設定、401 自動登出
-│   ├── auth_service.dart   # 驗證相關 API
-│   └── word_service.dart   # 單字、複習、統計 API
+│   ├── api_service.dart      # HTTP 基礎設定、401 自動登出
+│   ├── auth_service.dart     # 驗證相關 API
+│   └── word_service.dart     # 單字、複習、統計 API
+├── widgets/
+│   └── flashcard_widget.dart # 閃卡元件（含熟練度 badge）
 └── screens/
     ├── login_screen.dart
     ├── verify_email_screen.dart
     ├── forgot_password_screen.dart
     ├── reset_password_screen.dart
     ├── home_screen.dart
+    ├── word_list_screen.dart
     ├── flashcard_screen.dart
+    ├── quiz_screen.dart
+    ├── review_screen.dart
     └── result_screen.dart
 ```
 
@@ -77,7 +92,9 @@ lib/
 
 ### Overview
 
-Mobile application for LinguaMastery, a gamified language learning platform. Built with Flutter, targeting Android and Web platforms.
+Mobile application for LinguaMastery, a gamified language learning platform. Built with Flutter, targeting Android.
+
+> **Download APK**: [GitHub Releases](https://github.com/Raito66/lingua-mastery-app/releases)
 
 ### Tech Stack
 
@@ -86,27 +103,35 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - **HTTP**: http package
 - **Local Storage**: shared_preferences
 - **TTS**: flutter_tts
-- **Platforms**: Android, Web
+- **Platform**: Android
+- **Backend API**: https://lingua-mastery-api.onrender.com
 
 ### Features
 
-- User registration / login
+- User registration / login (Enter key field navigation)
 - Email verification flow
 - Forgot password / password reset (manual token entry)
-- Vocabulary book management (create, long-press to edit name / language / delete)
-- Flashcard study mode (with auto TTS + 🔊 manual replay)
+- Vocabulary book management (⋮ menu for edit / delete)
+- Word list screen (proficiency progress bar + level stats)
+- Flashcard study mode (auto TTS + 🔊 manual replay + proficiency badge)
 - Multiple choice quiz (4 options, correct ✓ / wrong ✗ feedback)
 - Spaced repetition review (SRS)
 - Learning result statistics
 - Daily learning streak (🔥 consecutive days + today's count)
 
-### Getting Started
+### Install (on your phone)
+
+1. Go to [GitHub Releases](https://github.com/Raito66/lingua-mastery-app/releases)
+2. Download the latest `LinguaMastery-vX.X.X.apk`
+3. Open the file on your phone and allow "Install from unknown sources"
+4. Done — open the app and start learning
+
+### Local Development
 
 #### Prerequisites
 
 - Flutter 3.x SDK
 - Android Studio (with Android emulator)
-- Backend API running
 
 #### Install & Run
 
@@ -115,8 +140,8 @@ flutter pub get
 flutter run
 ```
 
-- **Android emulator**: API connects to `http://10.0.2.2:8080`
-- **Web / Windows**: API connects to `http://localhost:8080`
+> The app connects to the Render production API by default.
+> For local backend, update `baseUrl` in `lib/services/api_service.dart`.
 
 ### Project Structure
 
@@ -127,22 +152,38 @@ lib/
 │   ├── word.dart
 │   └── word_book.dart
 ├── services/
-│   ├── api_service.dart    # HTTP base config, 401 auto-logout
-│   ├── auth_service.dart   # Auth-related API calls
-│   └── word_service.dart   # Word, review, stats API calls
+│   ├── api_service.dart      # HTTP base config, 401 auto-logout
+│   ├── auth_service.dart     # Auth-related API calls
+│   └── word_service.dart     # Word, review, stats API calls
+├── widgets/
+│   └── flashcard_widget.dart # Flashcard widget with proficiency badge
 └── screens/
     ├── login_screen.dart
     ├── verify_email_screen.dart
     ├── forgot_password_screen.dart
     ├── reset_password_screen.dart
     ├── home_screen.dart
+    ├── word_list_screen.dart
     ├── flashcard_screen.dart
+    ├── quiz_screen.dart
+    ├── review_screen.dart
     └── result_screen.dart
 ```
 
 ---
 
 ## 更新日誌 / Changelog
+
+### v0.8.0 (2026-05-19)
+- API 改連線至 Render 正式環境
+- APK 發布至 GitHub Releases，可直接下載安裝
+
+### v0.7.0 (2026-05-19)
+- 新增單字列表畫面（熟練度進度條 + 各等級數量統計）
+- 閃卡正面顯示熟練度 badge
+- 書卡改為四個等寬按鈕（單字 / 閃卡 / 選擇題 / 複習）
+- ⋮ 選單取代長按，操作更直覺
+- 登入頁 Enter 鍵直接觸發登入
 
 ### v0.6.0 (2026-05-19)
 - 新增選擇題畫面（答後顯示綠✓紅✗）
@@ -173,6 +214,17 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.8.0 (2026-05-19)
+- API now connects to Render production environment
+- APK published to GitHub Releases for direct download
+
+### v0.7.0 (2026-05-19)
+- Added word list screen (proficiency progress bar + level stats)
+- Proficiency badge on flashcard front
+- Book card redesigned with 4 equal-width buttons (Words / Flashcard / Quiz / Review)
+- ⋮ menu replaces long-press for more intuitive interaction
+- Enter key triggers login on login screen
 
 ### v0.6.0 (2026-05-19)
 - Added multiple choice quiz screen (green ✓ / red ✗ feedback)
