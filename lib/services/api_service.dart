@@ -1,12 +1,15 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static String get baseUrl =>
-      kIsWeb ? 'http://localhost:8080' : 'https://lingua-mastery-api.onrender.com';
+  static String get baseUrl {
+    if (kIsWeb) return 'http://localhost:8080';
+    if (kReleaseMode) return 'https://lingua-mastery-api.onrender.com';
+    return 'http://10.0.2.2:8080'; // debug：連本機後端
+  }
 
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
