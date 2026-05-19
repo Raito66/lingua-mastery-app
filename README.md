@@ -26,6 +26,7 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 與 We
 - 忘記密碼 / 重設密碼（Token 手動輸入）
 - 單字書管理（新增、長按編輯名稱 / 語言 / 刪除）
 - 閃卡學習模式（含自動朗讀 TTS + 🔊 手動重播）
+- 選擇題測驗（四選一，答後顯示綠✓紅✗）
 - 間隔重複複習（SRS）
 - 學習結果統計
 - 每日學習 Streak（🔥 連續天數 + 今日練習數）
@@ -94,6 +95,7 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - Forgot password / password reset (manual token entry)
 - Vocabulary book management (create, long-press to edit name / language / delete)
 - Flashcard study mode (with auto TTS + 🔊 manual replay)
+- Multiple choice quiz (4 options, correct ✓ / wrong ✗ feedback)
 - Spaced repetition review (SRS)
 - Learning result statistics
 - Daily learning streak (🔥 consecutive days + today's count)
@@ -142,6 +144,11 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.6.0 (2026-05-19)
+- 新增選擇題畫面（答後顯示綠✓紅✗）
+- 書卡新增「選擇題」按鈕（白色低調），「測驗」改名「閃卡」
+- 登入頁 input 文字改為黑色
+
 ### v0.5.0 (2026-05-19)
 - 首頁新增 🔥 Streak 顯示（連續天數 + 今日練習數）
 
@@ -166,6 +173,11 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.6.0 (2026-05-19)
+- Added multiple choice quiz screen (green ✓ / red ✗ feedback)
+- Added "選擇題" button on book cards, renamed "測驗" to "閃卡"
+- Fixed login input text color to black
 
 ### v0.5.0 (2026-05-19)
 - Added 🔥 Streak display on home screen (consecutive days + today's count)
