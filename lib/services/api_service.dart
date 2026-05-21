@@ -33,10 +33,20 @@ class ApiService {
     navigatorKey.currentState?.pushNamedAndRemoveUntil('/login', (_) => false);
   }
 
+  static const _timeout = Duration(seconds: 30);
+
+  // 驗證相關端點不觸發自動登出（401 代表帳密錯誤，非 session 過期）
+  static bool _shouldHandleUnauthorized(String path) =>
+      !path.startsWith('/api/auth');
+
   static Future<http.Response> get(String path) async {
     final headers = await _headers();
-    final res = await http.get(Uri.parse('$baseUrl$path'), headers: headers);
-    if (res.statusCode == 401) _handleUnauthorized();
+    final res = await http
+        .get(Uri.parse('$baseUrl$path'), headers: headers)
+        .timeout(_timeout);
+    if (res.statusCode == 401 && _shouldHandleUnauthorized(path)) {
+      _handleUnauthorized();
+    }
     return res;
   }
 
@@ -46,8 +56,10 @@ class ApiService {
       Uri.parse('$baseUrl$path'),
       headers: headers,
       body: jsonEncode(body),
-    );
-    if (res.statusCode == 401) _handleUnauthorized();
+    ).timeout(_timeout);
+    if (res.statusCode == 401 && _shouldHandleUnauthorized(path)) {
+      _handleUnauthorized();
+    }
     return res;
   }
 
@@ -57,15 +69,21 @@ class ApiService {
       Uri.parse('$baseUrl$path'),
       headers: headers,
       body: jsonEncode(body),
-    );
-    if (res.statusCode == 401) _handleUnauthorized();
+    ).timeout(_timeout);
+    if (res.statusCode == 401 && _shouldHandleUnauthorized(path)) {
+      _handleUnauthorized();
+    }
     return res;
   }
 
   static Future<http.Response> delete(String path) async {
     final headers = await _headers();
-    final res = await http.delete(Uri.parse('$baseUrl$path'), headers: headers);
-    if (res.statusCode == 401) _handleUnauthorized();
+    final res = await http
+        .delete(Uri.parse('$baseUrl$path'), headers: headers)
+        .timeout(_timeout);
+    if (res.statusCode == 401 && _shouldHandleUnauthorized(path)) {
+      _handleUnauthorized();
+    }
     return res;
   }
 }

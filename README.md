@@ -174,6 +174,11 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.3 (2026-05-21)
+- 修正：登入失敗時 loading 按鈕卡住不恢復
+- 修正：首頁資料載入失敗時轉圈卡死
+- 改善：所有 HTTP 請求加上 30 秒 timeout
+
 ### v0.9.2 (2026-05-21)
 - 修正：補上 Android INTERNET 權限，release APK 終於能連線後端
 
@@ -224,6 +229,11 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.3 (2026-05-21)
+- Fix: Login loading button no longer gets stuck on failed login
+- Fix: Home screen loading spinner no longer freezes when API calls fail
+- Improve: Added 30-second timeout to all HTTP requests
 
 ### v0.9.2 (2026-05-21)
 - Fix: Added Android INTERNET permission — release APK can now connect to the backend
