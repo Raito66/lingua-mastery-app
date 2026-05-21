@@ -174,6 +174,9 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.2 (2026-05-21)
+- 修正：補上 Android INTERNET 權限，release APK 終於能連線後端
+
 ### v0.9.1 (2026-05-21)
 - 修正：密碼欄位按鍵盤完成鍵（Done）在登入與註冊模式皆可送出
 
@@ -221,6 +224,9 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.2 (2026-05-21)
+- Fix: Added Android INTERNET permission — release APK can now connect to the backend
 
 ### v0.9.1 (2026-05-21)
 - Fix: Keyboard Done key now submits in both login and register modes
