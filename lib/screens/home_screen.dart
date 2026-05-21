@@ -31,28 +31,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _load() async {
-    final prefs = await SharedPreferences.getInstance();
-    final email = prefs.getString('email') ?? '';
-    final results = await Future.wait([
-      WordService.getBooks(),
-      WordService.getStats(),
-      WordService.getReviewStats(),
-      WordService.getStreak(),
-    ]);
-    final books = results[0] as List<WordBook>;
-    final stats = results[1] as Map<String, dynamic>?;
-    final reviewCounts = results[2] as Map<int, int>;
-    final streakData = results[3] as Map<String, dynamic>?;
-    if (mounted) {
-      setState(() {
-        _email = email;
-        _books = books;
-        _stats = stats;
-        _reviewCounts = reviewCounts;
-        _streak = (streakData?['streak'] as int?) ?? 0;
-        _todayCount = (streakData?['todayCount'] as int?) ?? 0;
-        _loading = false;
-      });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final email = prefs.getString('email') ?? '';
+      final results = await Future.wait([
+        WordService.getBooks(),
+        WordService.getStats(),
+        WordService.getReviewStats(),
+        WordService.getStreak(),
+      ]);
+      final books = results[0] as List<WordBook>;
+      final stats = results[1] as Map<String, dynamic>?;
+      final reviewCounts = results[2] as Map<int, int>;
+      final streakData = results[3] as Map<String, dynamic>?;
+      if (mounted) {
+        setState(() {
+          _email = email;
+          _books = books;
+          _stats = stats;
+          _reviewCounts = reviewCounts;
+          _streak = (streakData?['streak'] as int?) ?? 0;
+          _todayCount = (streakData?['todayCount'] as int?) ?? 0;
+          _loading = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('[HomeScreen._load] error: $e');
+      if (mounted) setState(() => _loading = false);
     }
   }
 
