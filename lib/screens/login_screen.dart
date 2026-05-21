@@ -34,30 +34,35 @@ class _LoginScreenState extends State<LoginScreen> {
     final email = _emailCtrl.text.trim();
     final password = _passwordCtrl.text.trim();
 
-    if (_isLogin) {
-      final msg = await AuthService.loginWithMessage(email, password);
-      if (!mounted) return;
-      if (msg == null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
-        );
-      } else if (msg == 'EMAIL_NOT_VERIFIED') {
-        setState(() { _emailNotVerified = true; _loading = false; });
+    try {
+      if (_isLogin) {
+        final msg = await AuthService.loginWithMessage(email, password);
+        if (!mounted) return;
+        if (msg == null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const HomeScreen()),
+          );
+        } else if (msg == 'EMAIL_NOT_VERIFIED') {
+          setState(() { _emailNotVerified = true; _loading = false; });
+        } else {
+          setState(() { _error = 'Email 或密碼錯誤'; _loading = false; });
+        }
       } else {
-        setState(() { _error = 'Email 或密碼錯誤'; _loading = false; });
+        final err = await AuthService.register(email, password);
+        if (!mounted) return;
+        if (err == null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => VerifyEmailScreen(email: email)),
+          );
+        } else {
+          setState(() { _error = err; _loading = false; });
+        }
       }
-    } else {
-      final err = await AuthService.register(email, password);
+    } catch (e) {
       if (!mounted) return;
-      if (err == null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => VerifyEmailScreen(email: email)),
-        );
-      } else {
-        setState(() { _error = err; _loading = false; });
-      }
+      setState(() { _error = '發生錯誤，請稍後再試'; _loading = false; });
     }
   }
 
@@ -140,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   style: const TextStyle(color: Colors.black87),
                   textInputAction: TextInputAction.done,
-                  onSubmitted: (_) { if (!_loading) _submit(); },
+                  onSubmitted: _isLogin ? (_) { if (!_loading) _submit(); } : null,
                   decoration: _inputDecoration('密碼'),
                 ),
                 const SizedBox(height: 12),
