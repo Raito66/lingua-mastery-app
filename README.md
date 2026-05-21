@@ -174,6 +174,12 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.4 (2026-05-21)
+- 修正：密碼欄位不再裁切頭尾空格
+- 修正：Email 或密碼空白時顯示提示，不送出請求
+- 修正：首頁載入失敗時顯示錯誤訊息與重試按鈕
+- 修正：防止登出流程被並發重複觸發
+
 ### v0.9.3 (2026-05-21)
 - 修正：登入失敗時 loading 按鈕卡住不恢復
 - 修正：首頁資料載入失敗時轉圈卡死
@@ -229,6 +235,12 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.4 (2026-05-21)
+- Fix: Password field no longer trims leading/trailing spaces
+- Fix: Empty email or password now shows inline error instead of making a network call
+- Fix: Home screen shows error message and retry button when data fails to load
+- Fix: Prevent duplicate unauthorized logout calls on concurrent 401 responses
 
 ### v0.9.3 (2026-05-21)
 - Fix: Login loading button no longer gets stuck on failed login
