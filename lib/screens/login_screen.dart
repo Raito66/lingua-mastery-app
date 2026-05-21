@@ -32,7 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
       _resendMsg = null;
     });
     final email = _emailCtrl.text.trim();
-    final password = _passwordCtrl.text.trim();
+    final password = _passwordCtrl.text; // 密碼不 trim，保留頭尾空格
+
+    if (email.isEmpty || password.isEmpty) {
+      setState(() { _error = '請輸入 Email 和密碼'; _loading = false; });
+      return;
+    }
 
     try {
       if (_isLogin) {

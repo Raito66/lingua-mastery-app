@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _streak = 0;
   int _todayCount = 0;
   bool _loading = true;
+  bool _loadError = false;
   String _email = '';
 
   @override
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _load() async {
+    if (mounted) setState(() { _loading = true; _loadError = false; });
     try {
       final prefs = await SharedPreferences.getInstance();
       final email = prefs.getString('email') ?? '';
@@ -57,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     } catch (e) {
       debugPrint('[HomeScreen._load] error: $e');
-      if (mounted) setState(() => _loading = false);
+      if (mounted) setState(() { _loading = false; _loadError = true; });
     }
   }
 
@@ -301,6 +303,29 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: _loading
             ? const Center(child: CircularProgressIndicator(color: Color(0xFF7C6AFA)))
+            : _loadError
+            ? Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('😵', style: TextStyle(fontSize: 48)),
+                    const SizedBox(height: 12),
+                    const Text('載入失敗，請檢查網路連線',
+                        style: TextStyle(color: Colors.white54, fontSize: 14)),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: _load,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF7C6AFA),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: const Text('重試'),
+                    ),
+                  ],
+                ),
+              )
             : RefreshIndicator(
                 onRefresh: _load,
                 child: SingleChildScrollView(

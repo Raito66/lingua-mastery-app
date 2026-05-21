@@ -26,11 +26,16 @@ class ApiService {
     };
   }
 
+  static bool _handlingUnauthorized = false;
+
   static void _handleUnauthorized() async {
+    if (_handlingUnauthorized) return;
+    _handlingUnauthorized = true;
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
     await prefs.remove('email');
     navigatorKey.currentState?.pushNamedAndRemoveUntil('/login', (_) => false);
+    _handlingUnauthorized = false;
   }
 
   static const _timeout = Duration(seconds: 30);
