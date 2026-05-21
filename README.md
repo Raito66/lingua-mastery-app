@@ -174,6 +174,10 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.0 (2026-05-21)
+- 修正：註冊模式下密碼欄位按 Enter 會誤觸提交
+- 修正：網路錯誤時 loading 按鈕卡住不恢復
+
 ### v0.8.0 (2026-05-19)
 - API 改連線至 Render 正式環境
 - APK 發布至 GitHub Releases，可直接下載安裝
@@ -214,6 +218,10 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.0 (2026-05-21)
+- Fix: Enter key in register mode no longer auto-submits the form
+- Fix: Loading button no longer gets stuck when a network error occurs
 
 ### v0.8.0 (2026-05-19)
 - API now connects to Render production environment
