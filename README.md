@@ -174,6 +174,10 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.5 (2026-05-21)
+- 新增：密碼欄位眼睛圖示，可切換顯示/隱藏密碼
+- 新增：註冊時前端驗證密碼強度（8碼以上、含英文與數字）
+
 ### v0.9.4 (2026-05-21)
 - 修正：密碼欄位不再裁切頭尾空格
 - 修正：Email 或密碼空白時顯示提示，不送出請求
@@ -235,6 +239,10 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.5 (2026-05-21)
+- Add: Password visibility toggle (eye icon) on password field
+- Add: Frontend password strength validation for registration (8+ chars, letters + numbers)
 
 ### v0.9.4 (2026-05-21)
 - Fix: Password field no longer trims leading/trailing spaces
