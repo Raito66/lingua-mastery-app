@@ -5,6 +5,8 @@ import '../services/word_service.dart';
 import '../services/auth_service.dart';
 import 'flashcard_screen.dart';
 import 'quiz_screen.dart';
+import 'review_screen.dart';
+import 'stats_screen.dart';
 import 'word_list_screen.dart';
 import 'login_screen.dart';
 
@@ -277,9 +279,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _goToReview(WordBook book) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => FlashcardScreen(book: book, isReviewMode: true)),
+      MaterialPageRoute(builder: (_) => ReviewScreen(book: book)),
     );
     if (mounted) _load();
+  }
+
+  Future<void> _goToStats() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const StatsScreen()),
+    );
   }
 
   Future<void> _logout() async {
@@ -393,6 +402,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+        ),
+        IconButton(
+          onPressed: _goToStats,
+          icon: const Icon(Icons.bar_chart_rounded, color: Colors.white38),
+          tooltip: '統計',
         ),
         IconButton(
           onPressed: _logout,
