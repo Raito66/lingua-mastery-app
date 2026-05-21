@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordFocus = FocusNode();
   bool _isLogin = true;
   bool _loading = false;
+  bool _obscurePassword = true;
   String? _error;
   bool _emailNotVerified = false;
   bool _resending = false;
@@ -37,6 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
     if (email.isEmpty || password.isEmpty) {
       setState(() { _error = '請輸入 Email 和密碼'; _loading = false; });
       return;
+    }
+
+    // 註冊模式才驗證密碼強度
+    if (!_isLogin) {
+      final passwordRegex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d).{8,}$');
+      if (!passwordRegex.hasMatch(password)) {
+        setState(() { _error = '密碼至少 8 碼，須包含英文字母與數字'; _loading = false; });
+        return;
+      }
     }
 
     try {
@@ -148,11 +158,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   controller: _passwordCtrl,
                   focusNode: _passwordFocus,
-                  obscureText: true,
+                  obscureText: _obscurePassword,
                   style: const TextStyle(color: Colors.black87),
                   textInputAction: TextInputAction.done,
                   onSubmitted: (_) { if (!_loading) _submit(); },
-                  decoration: _inputDecoration('密碼'),
+                  decoration: _inputDecoration('密碼').copyWith(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 12),
 
@@ -241,6 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     _error = null;
                     _emailNotVerified = false;
                     _resendMsg = null;
+                    _obscurePassword = true;
                   }),
                   child: Text(
                     _isLogin ? '還沒有帳號？註冊' : '已有帳號？登入',
