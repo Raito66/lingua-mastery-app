@@ -174,6 +174,9 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.1 (2026-05-21)
+- 修正：密碼欄位按鍵盤完成鍵（Done）在登入與註冊模式皆可送出
+
 ### v0.9.0 (2026-05-21)
 - 修正：註冊模式下密碼欄位按 Enter 會誤觸提交
 - 修正：網路錯誤時 loading 按鈕卡住不恢復
@@ -218,6 +221,9 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.1 (2026-05-21)
+- Fix: Keyboard Done key now submits in both login and register modes
 
 ### v0.9.0 (2026-05-21)
 - Fix: Enter key in register mode no longer auto-submits the form

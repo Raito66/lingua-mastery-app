@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   style: const TextStyle(color: Colors.black87),
                   textInputAction: TextInputAction.done,
-                  onSubmitted: _isLogin ? (_) { if (!_loading) _submit(); } : null,
+                  onSubmitted: (_) { if (!_loading) _submit(); },
                   decoration: _inputDecoration('密碼'),
                 ),
                 const SizedBox(height: 12),
