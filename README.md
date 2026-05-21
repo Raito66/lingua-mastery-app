@@ -174,6 +174,13 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.7 (2026-05-21)
+- 新增：單字列表頁可直接新增單字（FAB `+` 按鈕）
+- 新增：單字列表每個項目可編輯單字資訊（⋯ 選單 → 編輯）
+- 新增：單字列表每個項目可刪除單字（⋯ 選單 → 刪除，含確認對話框）
+- 修正：編輯/刪除後確保 Widget 仍掛載才刷新列表
+- 修正：API 回傳空 body 時不再拋出 JSON 解析例外
+
 ### v0.9.6 (2026-05-21)
 - 新增：SRS 複習預覽畫面（顯示今日到期與新單字數量，再進入閃卡）
 - 新增：獨立學習統計頁面（連續天數、今日練習、總學習次數、正確率）
@@ -243,6 +250,13 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.7 (2026-05-21)
+- Add: Word list screen supports adding new words (FAB `+` button)
+- Add: Edit word inline from word list (⋯ menu → Edit)
+- Add: Delete word with confirmation dialog (⋯ menu → Delete)
+- Fix: Mounted check before refreshing list after edit/delete
+- Fix: No longer throws JSON parse exception when API returns empty body
 
 ### v0.9.6 (2026-05-21)
 - Add: SRS review preview screen (shows due & new word counts before entering flashcard)

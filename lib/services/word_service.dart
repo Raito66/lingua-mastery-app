@@ -100,6 +100,66 @@ class WordService {
     return res.statusCode == 204;
   }
 
+  static Future<Word> addWord(int bookId, {
+    required String word,
+    required String reading,
+    required String translation,
+    required String example,
+    required String level,
+    required String language,
+  }) async {
+    final res = await ApiService.post('/api/books/$bookId/words', {
+      'word': word,
+      'reading': reading,
+      'translation': translation,
+      'example': example,
+      'level': level.isEmpty ? null : level,
+      'language': language.toUpperCase(),
+    });
+    if (res.statusCode == 200) {
+      return Word.fromApiJson(jsonDecode(res.body));
+    }
+    final msg = res.body.isNotEmpty
+        ? jsonDecode(res.body)['message'] as String? ?? '新增失敗'
+        : '新增失敗';
+    throw Exception(msg);
+  }
+
+  static Future<Word> updateWord(int wordId, {
+    required String word,
+    required String reading,
+    required String translation,
+    required String example,
+    required String level,
+    required String language,
+  }) async {
+    final res = await ApiService.put('/api/words/$wordId', {
+      'word': word,
+      'reading': reading,
+      'translation': translation,
+      'example': example,
+      'level': level.isEmpty ? null : level,
+      'language': language.toUpperCase(),
+    });
+    if (res.statusCode == 200) {
+      return Word.fromApiJson(jsonDecode(res.body));
+    }
+    final msg = res.body.isNotEmpty
+        ? jsonDecode(res.body)['message'] as String? ?? '更新失敗'
+        : '更新失敗';
+    throw Exception(msg);
+  }
+
+  static Future<void> deleteWord(int wordId) async {
+    final res = await ApiService.delete('/api/words/$wordId');
+    if (res.statusCode != 204) {
+      final msg = res.body.isNotEmpty
+          ? jsonDecode(res.body)['message'] as String? ?? '刪除失敗'
+          : '刪除失敗';
+      throw Exception(msg);
+    }
+  }
+
   static Future<void> submitResult(int wordId, bool correct) async {
     await ApiService.post('/api/study/result', {
       'wordId': wordId,

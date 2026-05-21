@@ -9,6 +9,7 @@ class Word {
   final String language;          // 'english' | 'japanese'
   final String level;             // 'beginner' | 'intermediate' | 'advanced'
   final int proficiencyLevel;     // 0=未學習 1=學習中 2=已熟悉 3=已精通
+  final String apiLevel;          // 原始 API level 值，如 JLPT_N5、TOEIC_300
 
   const Word({
     required this.id,
@@ -21,6 +22,7 @@ class Word {
     required this.language,
     required this.level,
     this.proficiencyLevel = 0,
+    this.apiLevel = '',
   });
 
   factory Word.fromJson(Map<String, dynamic> json, String language) {
@@ -50,6 +52,7 @@ class Word {
       language: (json['language'] as String).toLowerCase(),
       level: _mapLevel(json['level'] as String? ?? ''),
       proficiencyLevel: (json['proficiencyLevel'] as int?) ?? 0,
+      apiLevel: json['level'] as String? ?? '',
     );
   }
 
