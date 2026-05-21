@@ -61,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
     } catch (e) {
+      debugPrint('[_submit] error: $e');
       if (!mounted) return;
       setState(() { _error = '發生錯誤，請稍後再試'; _loading = false; });
     }
