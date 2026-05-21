@@ -174,6 +174,10 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.6 (2026-05-21)
+- 新增：SRS 複習預覽畫面（顯示今日到期與新單字數量，再進入閃卡）
+- 新增：獨立學習統計頁面（連續天數、今日練習、總學習次數、正確率）
+
 ### v0.9.5 (2026-05-21)
 - 新增：密碼欄位眼睛圖示，可切換顯示/隱藏密碼
 - 新增：註冊時前端驗證密碼強度（8碼以上、含英文與數字）
@@ -239,6 +243,10 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.6 (2026-05-21)
+- Add: SRS review preview screen (shows due & new word counts before entering flashcard)
+- Add: Dedicated learning statistics screen (streak, today's count, total studied, accuracy)
 
 ### v0.9.5 (2026-05-21)
 - Add: Password visibility toggle (eye icon) on password field

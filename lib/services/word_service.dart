@@ -48,6 +48,24 @@ class WordService {
     });
   }
 
+  /// 回傳指定書本今日到期和新單字數量 (dueCount, newCount)，失敗時 throw Exception
+  static Future<(int, int)> getBookReviewDetail(int bookId) async {
+    final res = await ApiService.get('/api/review/stats');
+    if (res.statusCode == 200) {
+      final List data = jsonDecode(res.body);
+      for (final e in data) {
+        if ((e['bookId'] as num).toInt() == bookId) {
+          return (
+            (e['dueCount'] as num).toInt(),
+            (e['newCount'] as num).toInt(),
+          );
+        }
+      }
+      return (0, 0); // 此書本今日無待複習
+    }
+    throw Exception('取得複習資料失敗 (${res.statusCode})');
+  }
+
   /// 回傳 bookId -> 今日待複習數（到期 + 新單字）
   static Future<Map<int, int>> getReviewStats() async {
     final res = await ApiService.get('/api/review/stats');
