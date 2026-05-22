@@ -176,6 +176,9 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v1.0.2 (2026-05-22)
+- 修正：空單字本現在也顯示「單字」按鈕，可正常進入列表新增單字
+
 ### v1.0.1 (2026-05-22)
 - 新增：註冊模式加入顯示名稱欄位
 - 修正：重設密碼前端驗證改為 8 碼+英數
@@ -269,6 +272,9 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v1.0.2 (2026-05-22)
+- Fix: Empty word books now show the "單字" button — word list always accessible
 
 ### v1.0.1 (2026-05-22)
 - Add: Display name field in register mode
