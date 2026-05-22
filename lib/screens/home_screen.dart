@@ -554,13 +554,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text('${book.wordCount} 個單字',
                 style: const TextStyle(color: Colors.white38, fontSize: 12)),
           ),
-          if (book.wordCount > 0) ...[
-            const SizedBox(height: 16),
-            // ── 底部：四個等寬按鈕 ──
-            Row(
-              children: [
-                _bookBtn('單字', Colors.white54, Colors.white12,
-                    Colors.white24, () => _goToWordList(book)),
+          const SizedBox(height: 16),
+          // ── 底部按鈕 ──
+          Row(
+            children: [
+              _bookBtn('單字', Colors.white54, Colors.white12,
+                  Colors.white24, () => _goToWordList(book)),
+              if (book.wordCount > 0) ...[
                 const SizedBox(width: 8),
                 _bookBtn('閃卡', color, color.withOpacity(0.15),
                     color.withOpacity(0.3), () => _goToStudy(book)),
@@ -572,8 +572,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Color(0xFF7C6AFA), reviewCount,
                     () => _goToReview(book)),
               ],
-            ),
-          ],
+            ],
+          ),
         ],
       ),
     );
