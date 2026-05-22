@@ -18,6 +18,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   String? _error;
 
   Future<void> _submit() async {
+    final regex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d).{8,}$');
+    if (!regex.hasMatch(_passwordCtrl.text)) {
+      setState(() { _error = '密碼至少 8 碼，須包含英文字母與數字'; });
+      return;
+    }
     if (_passwordCtrl.text != _confirmCtrl.text) {
       setState(() { _error = '兩次密碼不一致'; });
       return;
@@ -75,7 +80,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 controller: _passwordCtrl,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: '新密碼（至少 6 個字元）',
+                  labelText: '新密碼（至少 8 碼，含英文與數字）',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: Colors.white,
