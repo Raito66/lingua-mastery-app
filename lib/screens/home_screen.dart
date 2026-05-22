@@ -9,6 +9,7 @@ import 'review_screen.dart';
 import 'stats_screen.dart';
 import 'word_list_screen.dart';
 import 'login_screen.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -291,6 +292,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Future<void> _goToProfile() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ProfileScreen()),
+    );
+  }
+
   Future<void> _logout() async {
     await AuthService.logout();
     if (!mounted) return;
@@ -408,10 +416,30 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: const Icon(Icons.bar_chart_rounded, color: Colors.white38),
           tooltip: '統計',
         ),
-        IconButton(
-          onPressed: _logout,
-          icon: const Icon(Icons.logout_rounded, color: Colors.white38),
-          tooltip: '登出',
+        GestureDetector(
+          onTap: _goToProfile,
+          child: Container(
+            width: 34,
+            height: 34,
+            margin: const EdgeInsets.only(right: 4),
+            decoration: const BoxDecoration(
+              color: Color(0xFF7C6AFA),
+              shape: BoxShape.circle,
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              () {
+                final parts = _email.split(RegExp(r'[@\s]+'));
+                final part = parts.isNotEmpty ? parts.first : '';
+                if (part.isEmpty) return '?';
+                return part.length >= 2
+                    ? part.substring(0, 2).toUpperCase()
+                    : part.toUpperCase();
+              }(),
+              style: const TextStyle(
+                  color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
       ],
     );

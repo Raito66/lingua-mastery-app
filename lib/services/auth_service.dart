@@ -2,6 +2,20 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'api_service.dart';
 
+class ProfileData {
+  final String email;
+  final String? displayName;
+
+  ProfileData({required this.email, this.displayName});
+
+  factory ProfileData.fromJson(Map<String, dynamic> json) {
+    return ProfileData(
+      email: json['email'] as String,
+      displayName: json['displayName'] as String?,
+    );
+  }
+}
+
 class AuthService {
   static Future<bool> login(String email, String password) async {
     final res = await ApiService.post('/api/auth/login', {
@@ -90,5 +104,32 @@ class AuthService {
   static Future<bool> isLoggedIn() async {
     final token = await ApiService.getToken();
     return token != null;
+  }
+
+  static Future<ProfileData> getProfile() async {
+    final res = await ApiService.get('/api/profile');
+    if (res.statusCode == 200) {
+      return ProfileData.fromJson(jsonDecode(res.body));
+    }
+    throw Exception('載入個人資料失敗 (${res.statusCode})');
+  }
+
+  /// null = 成功，字串 = 錯誤訊息
+  static Future<String?> updateProfile(String displayName) async {
+    final res = await ApiService.put('/api/profile', {'displayName': displayName});
+    if (res.statusCode == 200) return null;
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : {};
+    return data['message'] as String? ?? '更新失敗';
+  }
+
+  /// null = 成功，字串 = 錯誤訊息
+  static Future<String?> changePassword(String currentPassword, String newPassword) async {
+    final res = await ApiService.put('/api/profile/password', {
+      'currentPassword': currentPassword,
+      'newPassword': newPassword,
+    });
+    if (res.statusCode == 200) return null;
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : {};
+    return data['message'] as String? ?? '更改失敗';
   }
 }
