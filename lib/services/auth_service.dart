@@ -50,10 +50,11 @@ class AuthService {
   }
 
   /// null = 成功（需驗證信），字串 = 錯誤訊息
-  static Future<String?> register(String email, String password) async {
+  static Future<String?> register(String email, String password, String displayName) async {
     final res = await ApiService.post('/api/auth/register', {
       'email': email,
       'password': password,
+      'displayName': displayName,
     });
     if (res.statusCode == 200) return null;
     final data = jsonDecode(res.body);

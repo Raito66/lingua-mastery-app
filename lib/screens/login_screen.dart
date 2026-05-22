@@ -14,8 +14,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _displayNameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
+  final _emailFocus = FocusNode();
   final _passwordFocus = FocusNode();
   bool _isLogin = true;
   bool _loading = false;
@@ -32,8 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
       _emailNotVerified = false;
       _resendMsg = null;
     });
+    final displayName = _displayNameCtrl.text.trim();
     final email = _emailCtrl.text.trim();
     final password = _passwordCtrl.text; // 密碼不 trim，保留頭尾空格
+
+    if (!_isLogin && displayName.isEmpty) {
+      setState(() { _error = '請輸入顯示名稱'; _loading = false; });
+      return;
+    }
 
     if (email.isEmpty || password.isEmpty) {
       setState(() { _error = '請輸入 Email 和密碼'; _loading = false; });
@@ -64,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
           setState(() { _error = 'Email 或密碼錯誤'; _loading = false; });
         }
       } else {
-        final err = await AuthService.register(email, password);
+        final err = await AuthService.register(email, password, displayName);
         if (!mounted) return;
         if (err == null) {
           Navigator.pushReplacement(
@@ -94,7 +102,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    _displayNameCtrl.dispose();
     _emailCtrl.dispose();
+    _emailFocus.dispose();
     _passwordCtrl.dispose();
     _passwordFocus.dispose();
     super.dispose();
@@ -146,8 +156,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
                 const SizedBox(height: 32),
+                if (!_isLogin) ...[
+                  TextField(
+                    controller: _displayNameCtrl,
+                    style: const TextStyle(color: Colors.black87),
+                    textInputAction: TextInputAction.next,
+                    onSubmitted: (_) => FocusScope.of(context).requestFocus(_emailFocus),
+                    decoration: _inputDecoration('顯示名稱'),
+                  ),
+                  const SizedBox(height: 12),
+                ],
                 TextField(
                   controller: _emailCtrl,
+                  focusNode: _emailFocus,
                   keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(color: Colors.black87),
                   textInputAction: TextInputAction.next,
@@ -263,6 +284,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     _emailNotVerified = false;
                     _resendMsg = null;
                     _obscurePassword = true;
+                    _displayNameCtrl.clear();
                   }),
                   child: Text(
                     _isLogin ? '還沒有帳號？註冊' : '已有帳號？登入',
