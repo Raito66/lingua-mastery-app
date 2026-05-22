@@ -72,8 +72,8 @@ class WordService {
     if (res.statusCode == 200) {
       final List data = jsonDecode(res.body);
       return Map.fromEntries(data.map((e) => MapEntry(
-        e['bookId'] as int,
-        (e['dueCount'] as int) + (e['newCount'] as int),
+        (e['bookId'] as num).toInt(),
+        (e['dueCount'] as num).toInt() + (e['newCount'] as num).toInt(),
       )));
     }
     return {};

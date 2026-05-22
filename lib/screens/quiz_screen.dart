@@ -84,7 +84,6 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _handleNext() {
     if (_index + 1 >= _questions.length) {
-      setState(() => _loading = true); // 觸發結果畫面
       _showResult();
       return;
     }
@@ -203,7 +202,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     final q = _questions[_index];
     final total = _questions.length;
-    final progress = _index / total;
+    final progress = (_index + 1) / total;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D1A),

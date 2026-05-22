@@ -67,13 +67,17 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     }
   }
 
+  bool _processing = false;
+
   void _handleKnow() {
+    if (_processing) return;
+    _processing = true;
     final wordId = int.tryParse(_words[_currentIndex].id);
     if (wordId != null) {
       if (widget.isReviewMode) {
         WordService.submitReview(wordId, true).catchError((_) {});
       } else {
-        WordService.submitResult(wordId, true);
+        WordService.submitResult(wordId, true).catchError((_) {});
       }
     }
     setState(() => _knownCount++);
@@ -81,12 +85,14 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
   }
 
   void _handleDontKnow() {
+    if (_processing) return;
+    _processing = true;
     final wordId = int.tryParse(_words[_currentIndex].id);
     if (wordId != null) {
       if (widget.isReviewMode) {
         WordService.submitReview(wordId, false).catchError((_) {});
       } else {
-        WordService.submitResult(wordId, false);
+        WordService.submitResult(wordId, false).catchError((_) {});
       }
     }
     setState(() => _dontKnowCount++);
@@ -97,12 +103,16 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     if (_currentIndex + 1 >= _words.length) {
       _finish();
     } else {
-      setState(() => _currentIndex++);
+      setState(() {
+        _currentIndex++;
+        _processing = false;
+      });
       _speak(_words[_currentIndex].word);
     }
   }
 
   void _finish() {
+    if (!mounted) return;
     final xpGained = _knownCount * 10;
     Navigator.pushReplacement(
       context,
