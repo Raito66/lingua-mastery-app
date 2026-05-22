@@ -174,6 +174,15 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v0.9.8 (2026-05-22)
+- 修正：閃卡按鈕加入防連點機制，避免快速雙擊送出兩次結果
+- 修正：_finish() 補 mounted check，避免 Widget 已銷毀時仍導頁
+- 修正：study 模式 submitResult 補 catchError，網路失敗不崩潰
+- 修正：quiz 進度條改 (index+1)/total，第一題不再顯示 0%
+- 修正：quiz 結果對話框前移除多餘的 loading 狀態閃爍
+- 修正：api_service _handleUnauthorized 改為 Future<void>，flag 在 finally 重置
+- 修正：getReviewStats 的 as int 強轉改為 (as num).toInt() 防 ClassCastException
+
 ### v0.9.7 (2026-05-21)
 - 新增：單字列表頁可直接新增單字（FAB `+` 按鈕）
 - 新增：單字列表每個項目可編輯單字資訊（⋯ 選單 → 編輯）
@@ -250,6 +259,15 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v0.9.8 (2026-05-22)
+- Fix: Flashcard buttons debounced — rapid double-tap no longer submits twice
+- Fix: _finish() mounted check added to prevent navigation after widget disposal
+- Fix: Study mode submitResult now has catchError — network failures don't crash
+- Fix: Quiz progress bar changed to (index+1)/total — no longer 0% on first question
+- Fix: Removed spurious loading state flicker before quiz result dialog
+- Fix: _handleUnauthorized changed to Future<void>, flag reset in finally block
+- Fix: getReviewStats cast changed to (as num).toInt() to prevent ClassCastException
 
 ### v0.9.7 (2026-05-21)
 - Add: Word list screen supports adding new words (FAB `+` button)
