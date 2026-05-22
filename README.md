@@ -34,6 +34,7 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 平台
 - 間隔重複複習（SRS）
 - 學習結果統計
 - 每日學習 Streak（🔥 連續天數 + 今日練習數）
+- 會員專區（顯示名稱編輯、更改密碼、關於頁）
 
 ### 安裝（手機直接使用）
 
@@ -118,6 +119,7 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - Spaced repetition review (SRS)
 - Learning result statistics
 - Daily learning streak (🔥 consecutive days + today's count)
+- Member profile (edit display name, change password, About page)
 
 ### Install (on your phone)
 
@@ -173,6 +175,10 @@ lib/
 ---
 
 ## 更新日誌 / Changelog
+
+### v1.0.0 (2026-05-22)
+- 新增：會員專區畫面 — 頭像圓圈（姓名縮寫）、顯示名稱、編輯名稱、更改密碼、關於頁
+- 新增：首頁 AppBar 以頭像圓圈按鈕進入會員專區
 
 ### v0.9.8 (2026-05-22)
 - 修正：閃卡按鈕加入防連點機制，避免快速雙擊送出兩次結果
@@ -259,6 +265,10 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v1.0.0 (2026-05-22)
+- Add: Member profile screen — avatar (initials), display name, edit name, change password, About
+- Add: Home screen AppBar avatar circle button navigates to profile
 
 ### v0.9.8 (2026-05-22)
 - Fix: Flashcard buttons debounced — rapid double-tap no longer submits twice
