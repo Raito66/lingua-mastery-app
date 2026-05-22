@@ -176,6 +176,10 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v1.0.1 (2026-05-22)
+- 新增：註冊模式加入顯示名稱欄位
+- 修正：重設密碼前端驗證改為 8 碼+英數
+
 ### v1.0.0 (2026-05-22)
 - 新增：會員專區畫面 — 頭像圓圈（姓名縮寫）、顯示名稱、編輯名稱、更改密碼、關於頁
 - 新增：首頁 AppBar 以頭像圓圈按鈕進入會員專區
@@ -265,6 +269,10 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v1.0.1 (2026-05-22)
+- Add: Display name field in register mode
+- Fix: Reset password validation updated to 8+ chars, letters + numbers
 
 ### v1.0.0 (2026-05-22)
 - Add: Member profile screen — avatar (initials), display name, edit name, change password, About
