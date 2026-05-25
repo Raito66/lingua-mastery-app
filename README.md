@@ -176,6 +176,9 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v1.0.4 (2026-05-25)
+- 修正：auth_service 錯誤回應改用 isNotEmpty 保護 jsonDecode，防止伺服器回傳非 JSON body 時崩潰
+
 ### v1.0.3 (2026-05-25)
 - 新增：單字列表支援即時搜尋（單字 / 翻譯 / 讀音）與熟練度篩選
 
@@ -275,6 +278,12 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v1.0.4 (2026-05-25)
+- Fix: auth_service error responses now guard jsonDecode with isNotEmpty to prevent crashes on non-JSON server responses
+
+### v1.0.3 (2026-05-25)
+- Add: Word list supports live search (word / translation / reading) and proficiency filter
 
 ### v1.0.2 (2026-05-22)
 - Fix: Empty word books now show the "單字" button — word list always accessible
