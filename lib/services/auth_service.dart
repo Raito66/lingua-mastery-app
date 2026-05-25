@@ -45,8 +45,8 @@ class AuthService {
       await prefs.setString('email', data['email']);
       return null;
     }
-    final data = jsonDecode(res.body);
-    return data['message'] ?? 'ERROR';
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : <String, dynamic>{};
+    return data['message'] as String? ?? 'ERROR';
   }
 
   /// null = 成功（需驗證信），字串 = 錯誤訊息
@@ -57,8 +57,8 @@ class AuthService {
       'displayName': displayName,
     });
     if (res.statusCode == 200) return null;
-    final data = jsonDecode(res.body);
-    return data['message'] ?? '註冊失敗';
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : <String, dynamic>{};
+    return data['message'] as String? ?? '註冊失敗';
   }
 
   /// 回傳 'EMAIL_NOT_VERIFIED' 表示未驗證，null 表示其他錯誤
@@ -68,15 +68,15 @@ class AuthService {
       'password': password,
     });
     if (res.statusCode == 200) return 'OK';
-    final data = jsonDecode(res.body);
-    return data['message'] ?? 'ERROR';
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : <String, dynamic>{};
+    return data['message'] as String? ?? 'ERROR';
   }
 
   static Future<String?> forgotPassword(String email) async {
     final res = await ApiService.post('/api/auth/forgot-password', {'email': email});
     if (res.statusCode == 200) return null;
-    final data = jsonDecode(res.body);
-    return data['message'] ?? '發生錯誤';
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : <String, dynamic>{};
+    return data['message'] as String? ?? '發生錯誤';
   }
 
   static Future<String?> resetPassword(String token, String password) async {
@@ -85,15 +85,15 @@ class AuthService {
       'password': password,
     });
     if (res.statusCode == 200) return null;
-    final data = jsonDecode(res.body);
-    return data['message'] ?? '重設失敗';
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : <String, dynamic>{};
+    return data['message'] as String? ?? '重設失敗';
   }
 
   static Future<String?> resendVerification(String email) async {
     final res = await ApiService.post('/api/auth/resend-verification', {'email': email});
     if (res.statusCode == 200) return null;
-    final data = jsonDecode(res.body);
-    return data['message'] ?? '發生錯誤';
+    final data = res.body.isNotEmpty ? jsonDecode(res.body) : <String, dynamic>{};
+    return data['message'] as String? ?? '發生錯誤';
   }
 
   static Future<void> logout() async {
