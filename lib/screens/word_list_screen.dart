@@ -18,6 +18,7 @@ class _WordListScreenState extends State<WordListScreen> {
   String? _error;
   String _searchText = '';
   int? _filterLevel; // null = 全部
+  final _searchCtrl = TextEditingController();
 
   List<Word> get _filteredWords {
     return _words.where((w) {
@@ -49,6 +50,12 @@ class _WordListScreenState extends State<WordListScreen> {
   void initState() {
     super.initState();
     _load();
+  }
+
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
   }
 
   Future<void> _load() async {
@@ -354,6 +361,7 @@ class _WordListScreenState extends State<WordListScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                           child: TextField(
+                            controller: _searchCtrl,
                             onChanged: (v) => setState(() => _searchText = v),
                             style: const TextStyle(color: Colors.white, fontSize: 14),
                             decoration: InputDecoration(
@@ -363,7 +371,10 @@ class _WordListScreenState extends State<WordListScreen> {
                               suffixIcon: _searchText.isNotEmpty
                                   ? IconButton(
                                       icon: const Icon(Icons.clear_rounded, color: Colors.white38, size: 18),
-                                      onPressed: () => setState(() => _searchText = ''),
+                                      onPressed: () {
+                                        _searchCtrl.clear();
+                                        setState(() => _searchText = '');
+                                      },
                                     )
                                   : null,
                               filled: true,
