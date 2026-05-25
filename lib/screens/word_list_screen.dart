@@ -16,6 +16,20 @@ class _WordListScreenState extends State<WordListScreen> {
   List<Word> _words = [];
   bool _loading = true;
   String? _error;
+  String _searchText = '';
+  int? _filterLevel; // null = 全部
+
+  List<Word> get _filteredWords {
+    return _words.where((w) {
+      final q = _searchText.trim().toLowerCase();
+      final matchSearch = q.isEmpty ||
+          w.word.toLowerCase().contains(q) ||
+          w.translation.toLowerCase().contains(q) ||
+          w.reading.toLowerCase().contains(q);
+      final matchLevel = _filterLevel == null || w.proficiencyLevel == _filterLevel;
+      return matchSearch && matchLevel;
+    }).toList();
+  }
 
   final _japLevels = const [
     ('', '無'),
@@ -336,19 +350,110 @@ class _WordListScreenState extends State<WordListScreen> {
                   : Column(
                       children: [
                         _buildProgressBar(bookColor),
-                        Expanded(
-                          child: RefreshIndicator(
-                            onRefresh: _load,
-                            child: ListView.builder(
-                              padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
-                              itemCount: _words.length,
-                              itemBuilder: (context, index) =>
-                                  _buildWordTile(_words[index]),
+                        // 搜尋列
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                          child: TextField(
+                            onChanged: (v) => setState(() => _searchText = v),
+                            style: const TextStyle(color: Colors.white, fontSize: 14),
+                            decoration: InputDecoration(
+                              hintText: '搜尋單字、翻譯或讀音...',
+                              hintStyle: const TextStyle(color: Colors.white38, fontSize: 13),
+                              prefixIcon: const Icon(Icons.search_rounded, color: Colors.white38, size: 20),
+                              suffixIcon: _searchText.isNotEmpty
+                                  ? IconButton(
+                                      icon: const Icon(Icons.clear_rounded, color: Colors.white38, size: 18),
+                                      onPressed: () => setState(() => _searchText = ''),
+                                    )
+                                  : null,
+                              filled: true,
+                              fillColor: Colors.white10,
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide.none,
+                              ),
                             ),
                           ),
                         ),
+                        // 熟練度篩選 chips
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                          child: Row(
+                            children: [
+                              _filterChip(null, '全部', Colors.white54),
+                              const SizedBox(width: 8),
+                              _filterChip(0, '未學習', Colors.white38),
+                              const SizedBox(width: 8),
+                              _filterChip(1, '學習中', const Color(0xFFFFD54F)),
+                              const SizedBox(width: 8),
+                              _filterChip(2, '已熟悉', const Color(0xFF69F0AE)),
+                              const SizedBox(width: 8),
+                              _filterChip(3, '已精通', const Color(0xFFCE93D8)),
+                            ],
+                          ),
+                        ),
+                        // 篩選結果提示
+                        if (_searchText.isNotEmpty || _filterLevel != null)
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
+                            child: Text(
+                              '顯示 ${_filteredWords.length} / ${_words.length} 個單字',
+                              style: const TextStyle(color: Colors.white38, fontSize: 12),
+                            ),
+                          ),
+                        Expanded(
+                          child: _filteredWords.isEmpty
+                              ? const Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text('🔍', style: TextStyle(fontSize: 36)),
+                                      SizedBox(height: 8),
+                                      Text('找不到符合的單字',
+                                          style: TextStyle(color: Colors.white38, fontSize: 14)),
+                                    ],
+                                  ),
+                                )
+                              : RefreshIndicator(
+                                  onRefresh: _load,
+                                  child: ListView.builder(
+                                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
+                                    itemCount: _filteredWords.length,
+                                    itemBuilder: (context, index) =>
+                                        _buildWordTile(_filteredWords[index]),
+                                  ),
+                                ),
+                        ),
                       ],
                     ),
+    );
+  }
+
+  Widget _filterChip(int? level, String label, Color color) {
+    final selected = _filterLevel == level;
+    return GestureDetector(
+      onTap: () => setState(() => _filterLevel = level),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: selected ? color.withOpacity(0.15) : Colors.white10,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: selected ? color : Colors.transparent,
+            width: 1.2,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: selected ? color : Colors.white38,
+            fontSize: 12,
+            fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ),
     );
   }
 
