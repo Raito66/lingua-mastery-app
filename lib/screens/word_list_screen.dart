@@ -76,6 +76,16 @@ class _WordListScreenState extends State<WordListScreen> {
     }
   }
 
+  /// 只重新載入單字列表，不刷新統計（用於編輯單字後，不影響單字數量）
+  Future<void> _loadWords() async {
+    try {
+      final words = await WordService.getWords(widget.book.id);
+      if (mounted) setState(() { _words = words; });
+    } catch (_) {
+      // 靜默失敗，保留現有列表
+    }
+  }
+
   List<(String, String)> get _levels =>
       widget.book.language == 'JAPANESE' ? _japLevels : _engLevels;
 
@@ -627,7 +637,7 @@ class _WordListScreenState extends State<WordListScreen> {
             onSelected: (value) async {
               if (value == 'edit') {
                 await _showWordForm(editWord: word);
-                if (mounted) _load();
+                if (mounted) _loadWords();
               } else if (value == 'delete') {
                 await _deleteWord(word);
               }
