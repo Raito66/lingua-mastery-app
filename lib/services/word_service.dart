@@ -23,6 +23,14 @@ class WordService {
     throw Exception('載入單字失敗 (${res.statusCode})');
   }
 
+  static Future<Map<String, dynamic>> getBookStats(int bookId) async {
+    final res = await ApiService.get('/api/stats/book/$bookId');
+    if (res.statusCode == 200) {
+      return jsonDecode(res.body) as Map<String, dynamic>;
+    }
+    return {};
+  }
+
   static Future<List<Word>> getStudyWords(int bookId) async {
     final res = await ApiService.get('/api/study/$bookId');
     if (res.statusCode == 200) {

@@ -14,6 +14,7 @@ class WordListScreen extends StatefulWidget {
 
 class _WordListScreenState extends State<WordListScreen> {
   List<Word> _words = [];
+  Map<String, dynamic> _bookStats = {};
   bool _loading = true;
   String? _error;
   String _searchText = '';
@@ -65,6 +66,13 @@ class _WordListScreenState extends State<WordListScreen> {
       if (mounted) setState(() { _words = words; _loading = false; });
     } catch (e) {
       if (mounted) setState(() { _error = e.toString(); _loading = false; });
+      return;
+    }
+    try {
+      final stats = await WordService.getBookStats(widget.book.id);
+      if (mounted) setState(() { _bookStats = stats; });
+    } catch (_) {
+      // 統計載入失敗不影響主要功能
     }
   }
 
@@ -509,6 +517,19 @@ class _WordListScreenState extends State<WordListScreen> {
               _buildCount('未學習', counts[0], Colors.white38),
             ],
           ),
+          if ((_bookStats['totalStudied'] as num? ?? 0).toInt() > 0) ...[
+            const SizedBox(height: 12),
+            const Divider(color: Colors.white10, height: 1),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildCount('練習次數', (_bookStats['totalStudied'] as num).toInt(), const Color(0xFF64B5F6)),
+                _buildCount('準確率', null, const Color(0xFF64B5F6),
+                    label2: '${(_bookStats['accuracy'] as num? ?? 0.0).toStringAsFixed(1)}%'),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -522,11 +543,13 @@ class _WordListScreenState extends State<WordListScreen> {
     );
   }
 
-  Widget _buildCount(String label, int count, Color color) {
+  Widget _buildCount(String label, int? count, Color color, {String? label2}) {
     return Column(
       children: [
-        Text('$count',
-            style: TextStyle(color: color, fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          label2 ?? count?.toString() ?? '-',
+          style: TextStyle(color: color, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 2),
         Text(label, style: const TextStyle(color: Colors.white38, fontSize: 11)),
       ],
