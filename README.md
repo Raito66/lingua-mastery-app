@@ -32,7 +32,7 @@ LinguaMastery 行動應用程式，使用 Flutter 開發，支援 Android 平台
 - 閃卡學習模式（含自動朗讀 TTS + 🔊 手動重播 + 熟練度 badge）
 - 選擇題測驗（四選一，答後顯示綠✓紅✗）
 - 間隔重複複習（SRS）
-- 學習結果統計
+- 學習結果統計（全局 + 每本書獨立練習次數與準確率）
 - 每日學習 Streak（🔥 連續天數 + 今日練習數）
 - 會員專區（顯示名稱編輯、更改密碼、關於頁）
 
@@ -117,7 +117,7 @@ Mobile application for LinguaMastery, a gamified language learning platform. Bui
 - Flashcard study mode (auto TTS + 🔊 manual replay + proficiency badge)
 - Multiple choice quiz (4 options, correct ✓ / wrong ✗ feedback)
 - Spaced repetition review (SRS)
-- Learning result statistics
+- Learning result statistics (global + per-book study count and accuracy)
 - Daily learning streak (🔥 consecutive days + today's count)
 - Member profile (edit display name, change password, About page)
 
