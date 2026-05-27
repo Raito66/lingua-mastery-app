@@ -176,6 +176,9 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v1.0.6 (2026-05-27)
+- 效能：編輯單字後僅刷新單字列表，不重複呼叫統計 API
+
 ### v1.0.5 (2026-05-27)
 - 新增：單字列表顯示每本書獨立的練習次數與答題準確率
 
@@ -281,6 +284,9 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v1.0.6 (2026-05-27)
+- Perf: Editing a word only refreshes the word list, skipping the stats API call
 
 ### v1.0.5 (2026-05-27)
 - Add: Per-book study count and accuracy displayed in word list screen
