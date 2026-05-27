@@ -176,6 +176,9 @@ lib/
 
 ## 更新日誌 / Changelog
 
+### v1.0.5 (2026-05-27)
+- 新增：單字列表顯示每本書獨立的練習次數與答題準確率
+
 ### v1.0.4 (2026-05-25)
 - 修正：auth_service 錯誤回應改用 isNotEmpty 保護 jsonDecode，防止伺服器回傳非 JSON body 時崩潰
 
@@ -278,6 +281,9 @@ lib/
 - 初始版本：登入、單字書管理、閃卡測驗、學習統計
 
 ---
+
+### v1.0.5 (2026-05-27)
+- Add: Per-book study count and accuracy displayed in word list screen
 
 ### v1.0.4 (2026-05-25)
 - Fix: auth_service error responses now guard jsonDecode with isNotEmpty to prevent crashes on non-JSON server responses
